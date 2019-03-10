@@ -1,0 +1,81 @@
+<div class="wrap-component">
+  <form [formGroup]="editForm" *ngIf="editForm" (ngSubmit)="onSubmit()">
+    <div class="wrap-form">
+      <div formGroupName="menu" class="wrap-form-block">
+        <label>
+          <div class="title-block">Create Menu</div>
+            <section>
+                <mat-checkbox  
+                  *ngFor="let menu of createMenuFrom" 
+                  formControlName="{{menu.controlname}}" 
+                  labelPosition="after" 
+                  color="primary"
+                  (change)="toggleVisibility(menu.controlname,$event)"
+                  checked="{{menu.checked}}">
+                    {{menu.label}}
+                  </mat-checkbox>
+              </section>
+        </label>
+      </div>
+
+      <!--Show/Hidden blicks start-->
+      <div class="wrap-form-block dmr-block" *ngIf="dmr">
+        <label>
+          <div class="title-block">Show Dmr's By: </div>
+          <div class="section-margin">
+              <section>
+                  <mat-radio-group formControlName="showDmrBy">
+                      <mat-radio-button 
+                        *ngFor="let showby of showDmrsBy"  
+                        value="{{showby}}"
+                        color="primary"
+                        (change)="radioChange($event)">
+                          {{showby}}
+                        </mat-radio-button>
+                  </mat-radio-group>
+              </section>
+              <section *ngIf="viewRadioBlock === 'Jet'">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <input matInput placeholder="Insert Your Jet.." formControlName="jet" >
+                </mat-form-field>
+              </section>
+              <section formGroupName="DepartmentFilter" *ngIf="viewRadioBlock === 'Department'">
+                      <mat-checkbox
+                          *ngFor="let department of departments" 
+                          formControlName="{{department.controlname}}" 
+                          labelPosition="after" 
+                          color="primary">
+                            {{department.label}}
+                      </mat-checkbox>
+              </section>
+          </div>
+        </label>
+      </div>
+      <div class="wrap-form-block swr-block" *ngIf="swr">
+        <label>
+            <div class="title-block">Show Swr's By: </div>
+        </label>
+      </div>
+      <div class="wrap-form-block esp-block" *ngIf="esp">
+          <label>
+              <div class="title-block">Show Esp's By: </div>
+          </label>
+      </div>
+
+
+      <!--Show/Hidden blicks end-->
+
+    </div>
+    <div class="wrap-form-button">
+      <button 
+      mat-flat-button 
+      color="primary" 
+      type="submit" 
+      [disabled]="!editForm.valid">
+        Save
+    </button>
+    </div>
+  </form>
+</div>
+<div>
+</div>

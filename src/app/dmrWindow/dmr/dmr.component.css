@@ -1,0 +1,18 @@
+.wrap-buttons{
+    display:flex;
+    justify-content: space-around;
+}
+.wrap-buttons div > button{
+    background: cornflowerblue;
+}
+.wrap-buttons div > button  a{
+    color: #fff;
+}
+.dmr-header{
+
+}
+.dmr-content{
+    border: 1px solid gray;
+    min-height: 70vh;
+    margin: 10px 0;
+}

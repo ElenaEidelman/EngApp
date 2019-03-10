@@ -1,0 +1,34 @@
+<div>
+  <div class="header-app">
+    <div class="img_profile">
+      <!-- <img src="../../assets/img/images.jpg"> -->
+      <img src="data:image/jpeg;base64,{{userDetails[11]}}" />
+    </div>
+    <div>
+      <h1>Hello {{userDetails[0]}}</h1>
+    </div>
+    <div class="wrap-buttons">
+      <a [routerLink]="['editprofile']">
+        <button mat-flat-button
+          matTooltip="Edit profile"
+          [matTooltipPosition]="position.value">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </a>
+      <button mat-flat-button (click)="logout()"
+        matTooltip="LogOut"
+        [matTooltipPosition]="position.value">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="wrap_content">
+      <div class="side-bar">
+        <app-sidenav [userName]="username"></app-sidenav>
+      </div>
+      <div class="content">
+        <!-- <app-content [page]="page"></app-content> -->
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+</div>

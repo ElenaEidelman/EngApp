@@ -1,0 +1,30 @@
+<div class="wrap-component">
+  <div class="dmr-header">
+    <div class="wrap-buttons">
+      <div>
+        <button mat-flat-button>
+          <a [routerLink]="['newdmr']">New Dmr</a>
+        </button>
+      </div>
+      <div>
+        <button mat-flat-button>
+          <a [routerLink]="['dmrlist']">Dmr List</a>
+        </button>
+      </div>
+      <div>
+        <button mat-flat-button>
+          <a [routerLink]="['dmrsearch']">Dmr Search</a>
+        </button>
+      </div>
+      <div>
+        <button mat-flat-button>
+          <a [routerLink]="['record']">record</a>
+        </button>
+      </div>
+    
+    </div>
+  </div>
+  <div class="dmr-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
