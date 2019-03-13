@@ -18,7 +18,7 @@
         </label>
       </div>
 
-      <!--Show/Hidden blicks start-->
+      <!--Show/Hidden blocks ---start-->
       <div class="wrap-form-block dmr-block" *ngIf="dmr">
         <label>
           <div class="title-block">Show Dmr's By: </div>
@@ -34,12 +34,18 @@
                         </mat-radio-button>
                   </mat-radio-group>
               </section>
-              <section *ngIf="viewRadioBlock === 'Jet'">
-                <mat-form-field class="example-full-width" appearance="outline">
-                  <input matInput placeholder="Insert Your Jet.." formControlName="jet" >
-                </mat-form-field>
+              <section formGroupName="Jet" *ngIf="viewRadioBlock === 'Jet'" class="wrapJetCheckbox">
+                <div *ngFor="let jet of jetsArr" class="wrapJetCheckboxBlock">
+                  <mat-checkbox
+                    *ngFor="let checkboxjet of jet" 
+                    formControlName="{{checkboxjet.controlname}}" 
+                    labelPosition="after" 
+                    color="primary">
+                      {{checkboxjet.label}}
+                  </mat-checkbox>
+                </div>
               </section>
-              <section formGroupName="DepartmentFilter" *ngIf="viewRadioBlock === 'Department'">
+              <section formGroupName="Department" *ngIf="viewRadioBlock === 'Department'">
                       <mat-checkbox
                           *ngFor="let department of departments" 
                           formControlName="{{department.controlname}}" 
@@ -61,9 +67,7 @@
               <div class="title-block">Show Esp's By: </div>
           </label>
       </div>
-
-
-      <!--Show/Hidden blicks end-->
+      <!--Show/Hidden blocks ----end-->
 
     </div>
     <div class="wrap-form-button">

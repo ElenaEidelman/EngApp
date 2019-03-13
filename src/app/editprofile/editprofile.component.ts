@@ -3,6 +3,11 @@ import { FormBuilder, Validators, FormArray , FormControl} from '@angular/forms'
 import { Menu } from '../classes/menu';
 import { GetDataService } from '../get-data.service';
 import {  Router } from '@angular/router';
+import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { JsonPipe } from '@angular/common';
+import { resource } from 'selenium-webdriver/http';
+import { Jet } from '../classes/jet';
 
 @Component({
   selector: 'app-editprofile',
@@ -11,7 +16,11 @@ import {  Router } from '@angular/router';
 })
 export class EditprofileComponent implements OnInit, OnDestroy {
 
-  constructor(private fb: FormBuilder, private dataService: GetDataService, private route: Router) {}
+  constructor(
+              private fb: FormBuilder, 
+              private dataService: GetDataService, 
+              private route: Router,
+              private dialog: MatDialog) {}
 
   createMenuFrom:Menu[];
 
@@ -23,6 +32,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     {controlname:'bm',label:'BM',ischecked: false},
     {controlname:'epi',label:'EPI',ischecked: false},
   ];
+  jets;
+  jetsArr = [];
   showDmrsBy = ['Waiting For','Jet','Department'];
 
   viewRadioBlock: string = "";
@@ -31,22 +42,24 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.username = localStorage.getItem('user');
-    this.createForm();
+    this.getListOfNestedBlock(this.username);
   }
 
   createForm(){
     this.dataService.getMenuForSideNav(this.username).subscribe((result: Menu[]) => {
-    this.createMenuFrom = result;
+    this.createMenuFrom = result["menu"];
     this.editForm = this.fb.group({
-      menu: this.fb.group(this.createGroupCheckbox(result).value),
+      menu: this.fb.group(this.createGroupCheckbox(result["menu"]).value),
       showDmrBy:[''],
-      jet:[''],
-      DepartmentFilter: this.fb.group(this.createGroupCheckbox(this.departments).value)
+      showSwrBy:[''],
+      showEspBy:[''],
+      Jet:this.fb.group(this.createGroupCheckbox(this.jets).value),
+      Department: this.fb.group(this.createGroupCheckbox(this.departments).value)
     });
 
     //radio button temporary selected byDefault start
-    this.editForm.get('showDmrBy').value = "Jet";
-    this.viewRadioBlock = "Jet";
+    this.editForm.get('showDmrBy').value = result["showdmrby"];
+    this.viewRadioBlock = result["showdmrby"];
     //radio button temporary selected end
 
      });
@@ -62,23 +75,41 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     let userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    let details = this.editForm.value;
+
+    let jetFilter = this.editForm.get('Jet').value;
+    let jetFilterObj: Jet[] = [];
+
+    //convert jetFilter to Jet class with parameters that only true
+    Object.keys(jetFilter).forEach(function (item) {
+      if(jetFilter[item] == true){
+        jetFilterObj.push({JET: item, show : jetFilter[item]});
+      }
+    });
+
     let dataToDb = {
       username: userDetails['username'],
-      showDmr: this.editForm.value['menu']['dmr'],
-      showSwr: this.editForm.value['menu']['dmr'],
-      showEsp: this.editForm.value['menu']['esp']
+      dmr: this.editForm.value['menu']['dmr'],
+      swr: this.editForm.value['menu']['swr'],
+      esp: this.editForm.value['menu']['esp'],
+      showdmrby: this.editForm.get('showDmrBy').value,
+      departmentfilter: JSON.stringify(this.editForm.get('Department').value),
+      jetfilter: JSON.stringify(jetFilterObj)
     }
     this.dataService.saveUserProfileDetails(dataToDb).subscribe(
       result => {
-        alert(result);
+        if(result){
+          this.openDialog('Success','Menu was changed');
+        }
+        else{
+          this.openDialog('Error','Sorry, something went wrong. Please try again later.');
+        }
       }
     );
-    console.warn(this.editForm.value);
   }
 
   //check box checked
   toggleVisibility(controlName:string, event){
-    //debugger
     let showMenu:Menu = new Menu (controlName.toUpperCase(),true,controlName.toLowerCase());
     if(event.checked)
   {
@@ -97,7 +128,47 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     this.viewRadioBlock = event.value;
   }
 
+  openDialog(title:string, message:string){
+    this.dialog.open(AlertDialogComponent,{
+      width:"350px",
+      data: {title:title, message:message}
+    });
+  }
   ngOnDestroy(){
     
+  }
+
+  getListOfNestedBlock(username:string){
+    this.dataService.listOfNestedBlock(username)
+    .then((result: any) => {
+      debugger
+      let wrapJetsArr = [];
+      let innerJetArr = [];
+      let temp = 1;
+      let countOfCol = 4;
+      let jetsArrLength = Math.round(result.jetsList.length / countOfCol);
+
+      result.jetsList.forEach((element,index) => {
+        if((index < jetsArrLength * temp + (temp - 1) && index != result.jetsList.length-1) && innerJetArr.length < jetsArrLength){
+          innerJetArr.push(element);
+        }
+        else if(index === result.jetsList.length-1){
+          innerJetArr.push(element);
+          wrapJetsArr.push(innerJetArr);
+        }
+        else{
+          wrapJetsArr.push(innerJetArr);
+          innerJetArr = [];
+          innerJetArr.push(element);
+          temp++;
+        }
+      });
+      
+      this.jets = result.jetsList;
+      this.jetsArr = wrapJetsArr;
+    })
+    .then(()=>{
+      this.createForm();
+    });
   }
 }

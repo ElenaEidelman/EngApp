@@ -57,12 +57,6 @@ export class GetDataService implements OnInit {
     } finally {
        // loading.dismiss();
     }
-    // return this.http.post(`${this.baseUrl}/users/ValidUserDepartment`,new String(username)).pipe(
-    //   map(result => {
-        
-    //     return result == "true" ? true : false;
-    //   })
-    // );
   }
 
   getUserDetails(username:string){
@@ -77,7 +71,7 @@ export class GetDataService implements OnInit {
   getMenuForSideNav(username: string):Observable<any>{
     return this.http.post(`${this.baseUrl}/users/ValidMenuForUser`,new String(username)).pipe(
       map(result => {
-        this.menu = Object.create(result);
+        this.menu = Object.create(result["menu"]);
         return result;
       })
     );
@@ -91,10 +85,20 @@ export class GetDataService implements OnInit {
   }
 
   saveUserProfileDetails(details: any){
+    debugger
     return this.http.post(`${this.baseUrl}/users/SaveProfileDetails`,details).pipe(
       map(result => {
         return result;
       })
     );
+  }
+  listOfNestedBlock(username){
+    try{
+      return this.http.post(`${this.baseUrl}/users/NestedBlocksList`,new String(username)).toPromise();
+    }
+    catch(err)
+    {
+      console.log(err);
+    }
   }
 }
