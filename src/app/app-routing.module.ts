@@ -11,6 +11,9 @@ import { DmrsearchComponent } from './dmrWindow/dmrsearch/dmrsearch.component';
 import { SwrComponent } from './windowSwr/swr/swr.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
 import { RecordComponent } from './dmrWindow/record/record.component';
+import { DmrDepartmentComponent } from './dmrWindow/dmr-department/dmr-department.component';
+import { DmrJetComponent } from './dmrWindow/dmr-jet/dmr-jet.component';
+import { DmrWaitingforComponent } from './dmrWindow/dmr-waitingfor/dmr-waitingfor.component';
 
 
 
@@ -18,18 +21,26 @@ const routes: Routes = [
   {path:'', redirectTo: 'logIn', pathMatch: 'full'},
   {path:'logIn', component: LogInComponent},
   {path:'profile/:username', component: ProfileComponent, canActivate: [ProfileGuardService],
-  children: [
-    { path: 'dmr', component: DmrComponent,
-      children:[
-        {path:'dmrlist',component:DmrlistComponent},
-        {path:'newdmr',component:NewdmrComponent},
-        {path:'dmrsearch',component:DmrsearchComponent},
-        {path: 'record', component:RecordComponent}
+    children: [
+      { path: 'dmr', component: DmrComponent,
+          children:[
+            {path:'dmrlist',component:DmrlistComponent, 
+              children:[
+                {path:'dmrByDepartment', component: DmrDepartmentComponent},
+                {path:'dmrByJet', component: DmrJetComponent},
+                {path:'dmrByWaitingFor', component: DmrWaitingforComponent},
+              ]
+            },
+            {path:'newdmr',component:NewdmrComponent},
+            {path:'dmrsearch',component:DmrsearchComponent},
+            {path: 'record', component:RecordComponent}
 
-      ] },
-    {path: 'swr', component: SwrComponent},
-    {path: 'editprofile',component: EditprofileComponent}
-  ]},
+                ]
+      },
+      {path: 'swr', component: SwrComponent},
+      {path: 'editprofile',component: EditprofileComponent}
+    ]
+  },
   //  {path:'content/:page', component: ContentComponent},
 
 

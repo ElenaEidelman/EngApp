@@ -23,6 +23,9 @@ import { NewdmrComponent } from './dmrWindow/newdmr/newdmr.component';
 import { DmrsearchComponent } from './dmrWindow/dmrsearch/dmrsearch.component';
 import { EditprofileComponent } from './editprofile/editprofile.component';
 import { RecordComponent } from './dmrWindow/record/record.component';
+import { DmrDepartmentComponent } from './dmrWindow/dmr-department/dmr-department.component';
+import { DmrJetComponent } from './dmrWindow/dmr-jet/dmr-jet.component';
+import { DmrWaitingforComponent } from './dmrWindow/dmr-waitingfor/dmr-waitingfor.component';
 
 
 
@@ -41,6 +44,9 @@ import { RecordComponent } from './dmrWindow/record/record.component';
     DmrsearchComponent,
     EditprofileComponent,
     RecordComponent,
+    DmrDepartmentComponent,
+    DmrJetComponent,
+    DmrWaitingforComponent,
   ],
   imports: [
     BrowserModule,

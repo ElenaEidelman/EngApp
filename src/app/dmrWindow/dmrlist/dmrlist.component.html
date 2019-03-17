@@ -1,3 +1,24 @@
-<p>
-  dmrlist works!
-</p>
+<div class="wrap-component">
+  <div class="dmr-header">
+    <div class="wrap-buttons">
+      <div class="button-element">
+        <button mat-flat-button>
+          <a [routerLink]="['dmrByDepartment']">Department</a>
+        </button>
+      </div>
+      <div class="button-element">
+        <button mat-flat-button>
+          <a [routerLink]="['dmrByJet']">Jet</a>
+        </button>
+      </div>
+      <div class="button-element">
+        <button mat-flat-button>
+          <a [routerLink]="['dmrByWaitingFor']">Waiting for</a>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

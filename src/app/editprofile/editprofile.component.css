@@ -24,6 +24,7 @@ section, mat-radio-group{
     font-size: 2em;
     font-weight: bold;
     text-decoration: underline;
+    margin: 10px;
 }
 .wrap-form-button{
     width:100%;
@@ -40,4 +41,10 @@ section, mat-radio-group{
     display: flex;
     flex-direction: column;
     margin-right: 2em;
+}
+.wrap-checkbox-section{
+    display: inline-block;
+}
+.wrap-checkbox-section mat-checkbox{
+    margin: 1.5em;
 }

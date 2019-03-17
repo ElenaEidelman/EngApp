@@ -1,23 +1,32 @@
 <div class="wrap-component">
   <form [formGroup]="editForm" *ngIf="editForm" (ngSubmit)="onSubmit()">
+    <div class="wrap-create-menu">
+        <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title></mat-panel-title>
+                <mat-panel-description>Create Menu</mat-panel-description>
+              </mat-expansion-panel-header>
+              <div formGroupName="menu" class="wrap-form-block">
+                  <label>
+                    <div class="title-block">Create Menu</div>
+                      <section class="wrap-checkbox-section">
+                          <mat-checkbox  
+                            *ngFor="let menu of createMenuFrom" 
+                            formControlName="{{menu.controlname}}" 
+                            labelPosition="after" 
+                            color="primary"
+                            (change)="toggleVisibility(menu.controlname,$event)"
+                            checked="{{menu.checked}}">
+                              {{menu.label}}
+                            </mat-checkbox>
+                        </section>
+                  </label>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
     <div class="wrap-form">
-      <div formGroupName="menu" class="wrap-form-block">
-        <label>
-          <div class="title-block">Create Menu</div>
-            <section>
-                <mat-checkbox  
-                  *ngFor="let menu of createMenuFrom" 
-                  formControlName="{{menu.controlname}}" 
-                  labelPosition="after" 
-                  color="primary"
-                  (change)="toggleVisibility(menu.controlname,$event)"
-                  checked="{{menu.checked}}">
-                    {{menu.label}}
-                  </mat-checkbox>
-              </section>
-        </label>
-      </div>
-
       <!--Show/Hidden blocks ---start-->
       <div class="wrap-form-block dmr-block" *ngIf="dmr">
         <label>

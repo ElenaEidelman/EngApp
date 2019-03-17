@@ -8,6 +8,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { JsonPipe } from '@angular/common';
 import { resource } from 'selenium-webdriver/http';
 import { Jet } from '../classes/jet';
+import { Department } from '../classes/department';
 
 @Component({
   selector: 'app-editprofile',
@@ -23,16 +24,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
               private dialog: MatDialog) {}
 
   createMenuFrom:Menu[];
-
-  departments = [
-    {controlname:'etch',label:'Etch',ischecked: true},
-    {controlname:'photo',label:'Photo',ischecked: false},
-    {controlname:'diff',label:'Diff',ischecked: false},
-    {controlname:'tf',label:'TF',ischecked: false},
-    {controlname:'bm',label:'BM',ischecked: false},
-    {controlname:'epi',label:'EPI',ischecked: false},
-  ];
   jets;
+  departments;
   jetsArr = [];
   showDmrsBy = ['Waiting For','Jet','Department'];
 
@@ -78,12 +71,23 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     let details = this.editForm.value;
 
     let jetFilter = this.editForm.get('Jet').value;
-    let jetFilterObj: Jet[] = [];
+    let departmentFilter = this.editForm.get("Department").value;
 
+    let jetFilterObj: Jet[] = [];
+    let departmentFilterObj:Department[] = [];
+ 
+    
     //convert jetFilter to Jet class with parameters that only true
     Object.keys(jetFilter).forEach(function (item) {
       if(jetFilter[item] == true){
         jetFilterObj.push({JET: item, show : jetFilter[item]});
+      }
+    });
+
+     //convert departmentFilter to Department class with parameters that only true
+    Object.keys(departmentFilter).forEach((item,index) => {
+      if(departmentFilter[item] == true){
+        departmentFilterObj.push({name: item, ischecked: true});
       }
     });
 
@@ -93,7 +97,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
       swr: this.editForm.value['menu']['swr'],
       esp: this.editForm.value['menu']['esp'],
       showdmrby: this.editForm.get('showDmrBy').value,
-      departmentfilter: JSON.stringify(this.editForm.get('Department').value),
+      departmentfilter: JSON.stringify(departmentFilterObj),
       jetfilter: JSON.stringify(jetFilterObj)
     }
     this.dataService.saveUserProfileDetails(dataToDb).subscribe(
@@ -141,7 +145,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
   getListOfNestedBlock(username:string){
     this.dataService.listOfNestedBlock(username)
     .then((result: any) => {
-      debugger
+      //debugger
+      // jet block start
       let wrapJetsArr = [];
       let innerJetArr = [];
       let temp = 1;
@@ -166,6 +171,9 @@ export class EditprofileComponent implements OnInit, OnDestroy {
       
       this.jets = result.jetsList;
       this.jetsArr = wrapJetsArr;
+      // jet block end
+
+      this.departments = result.departmentList;
     })
     .then(()=>{
       this.createForm();

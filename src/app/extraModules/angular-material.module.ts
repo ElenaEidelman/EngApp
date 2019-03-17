@@ -10,6 +10,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 
@@ -27,7 +28,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatTooltipModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -39,7 +41,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatTooltipModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule
   ]
 })
 export class AngularMaterialModule { }
