@@ -85,7 +85,6 @@ export class GetDataService implements OnInit {
   }
 
   saveUserProfileDetails(details: any){
-    debugger
     return this.http.post(`${this.baseUrl}/users/SaveProfileDetails`,details).pipe(
       map(result => {
         return result;

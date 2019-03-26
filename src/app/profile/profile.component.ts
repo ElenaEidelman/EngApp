@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {TooltipPosition} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import { Menu } from '../classes/menu';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -14,16 +15,19 @@ import { Menu } from '../classes/menu';
 export class ProfileComponent implements OnInit {
 
   constructor(
+              private _sanitizer: DomSanitizer,
               private dataService: GetDataService,
               private route: ActivatedRoute,
               private routing: Router) { }
 
   username: string;
   userDetails = {};
+  imgSrc;
 
   ngOnInit() {
     this.username = this.getUserName();
     this.getUserDetails(this.username);
+
   }
 
   getUserName(){
@@ -43,6 +47,8 @@ export class ProfileComponent implements OnInit {
       }
       localStorage.setItem('userDetails', JSON.stringify(userDetails));
       this.userDetails = result;
+      this.imgSrc = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg' + ';base64,' + result[11]);
+      
     });
   }
   positionOptions: TooltipPosition[] = ['after', 'before', 'above', 'below', 'left', 'right'];

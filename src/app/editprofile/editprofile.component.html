@@ -1,92 +1,167 @@
 <div class="wrap-component">
   <form [formGroup]="editForm" *ngIf="editForm" (ngSubmit)="onSubmit()">
     <div class="wrap-create-menu">
-        <mat-accordion>
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title></mat-panel-title>
-                <mat-panel-description>Create Menu</mat-panel-description>
-              </mat-expansion-panel-header>
-              <div formGroupName="menu" class="wrap-form-block">
-                  <label>
-                    <div class="title-block">Create Menu</div>
-                      <section class="wrap-checkbox-section">
-                          <mat-checkbox  
-                            *ngFor="let menu of createMenuFrom" 
-                            formControlName="{{menu.controlname}}" 
-                            labelPosition="after" 
-                            color="primary"
-                            (change)="toggleVisibility(menu.controlname,$event)"
-                            checked="{{menu.checked}}">
-                              {{menu.label}}
-                            </mat-checkbox>
-                        </section>
-                  </label>
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title></mat-panel-title>
+            <mat-panel-description>Create Menu</mat-panel-description>
+          </mat-expansion-panel-header>
+          <div formGroupName="menu" class="wrap-form-block">
+            <label>
+              <div class="title-block">Create Menu</div>
+              <section class="wrap-checkbox-section">
+                <mat-checkbox *ngFor="let menu of createMenuFrom" formControlName="{{menu.controlname}}"
+                  labelPosition="after" color="primary" (change)="toggleVisibility(menu.controlname,$event)"
+                  checked="{{menu.checked}}">
+                  {{menu.label}}
+                </mat-checkbox>
+              </section>
+            </label>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
+
     <div class="wrap-form">
       <!--Show/Hidden blocks ---start-->
-      <div class="wrap-form-block dmr-block" *ngIf="dmr">
-        <label>
-          <div class="title-block">Show Dmr's By: </div>
-          <div class="section-margin">
-              <section>
+      <div class="wrap-hidden-block">
+        <mat-accordion *ngIf="dmr">
+          <mat-expansion-panel>
+
+            <mat-expansion-panel-header>
+              <mat-panel-title></mat-panel-title>
+              <mat-panel-description>Show Dmr's By:</mat-panel-description>
+            </mat-expansion-panel-header>
+
+
+            <div class="wrap-form-block dmr-block">
+              <div class="title-block">Show Dmr's By: </div>
+              <div class="section-margin">
+
+                <section>
                   <mat-radio-group formControlName="showDmrBy">
-                      <mat-radio-button 
-                        *ngFor="let showby of showDmrsBy"  
-                        value="{{showby}}"
-                        color="primary"
-                        (change)="radioChange($event)">
-                          {{showby}}
-                        </mat-radio-button>
+                    <mat-radio-button *ngFor="let showby of showDmrsBy" value="{{showby}}" color="primary"
+                      (change)="radioChange($event)">
+                      {{showby}}
+                    </mat-radio-button>
                   </mat-radio-group>
-              </section>
-              <section formGroupName="Jet" *ngIf="viewRadioBlock === 'Jet'" class="wrapJetCheckbox">
-                <div *ngFor="let jet of jetsArr" class="wrapJetCheckboxBlock">
-                  <mat-checkbox
-                    *ngFor="let checkboxjet of jet" 
-                    formControlName="{{checkboxjet.controlname}}" 
-                    labelPosition="after" 
-                    color="primary">
-                      {{checkboxjet.label}}
-                  </mat-checkbox>
-                </div>
-              </section>
-              <section formGroupName="Department" *ngIf="viewRadioBlock === 'Department'">
-                      <mat-checkbox
-                          *ngFor="let department of departments" 
-                          formControlName="{{department.controlname}}" 
-                          labelPosition="after" 
-                          color="primary">
-                            {{department.label}}
+                </section>
+
+                <section formGroupName="Jet" *ngIf="viewRadioBlock === 'Jet'" class="jet-block">
+                  <div>
+                    <div *ngFor="let checkboxjet of jets; let i = index " class="wrapJetCheckboxBlock">
+                      <mat-checkbox formControlName="{{checkboxjet.controlname}}" labelPosition="after" color="primary"
+                        (change)="openHideJet(checkboxjet.controlname,$event)">
+                        {{checkboxjet.label}}
                       </mat-checkbox>
-              </section>
-          </div>
-        </label>
+                    </div>
+                  </div>
+
+                  <!-- View blocks of jet by selected checkbox -->
+                  <form [formGroup]="jetForm" class="jetForm">
+                      <div class="wrap-accordion-jet">
+                          <mat-accordion>
+                            <div *ngFor="let department of jets; let i = index" class="margin-accordion" formGroupName="{{department.controlname}}">
+                              <div *ngIf="viewJetBlock.includes(department.controlname)">
+                                <mat-expansion-panel *ngIf="department.child.length > 0">
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+      
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                      {{department.label}}
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+      
+      
+                                  <div class="wrapJetCheckbox">
+                                    <div class="wrap-checkbox-jet wrapJetCheckboxFirstChild">
+                                      <div *ngFor="let jet of department.child" style="display:flex;flex-grow: 1">
+                                        <mat-checkbox labelPosition="after" 
+                                          formControlName="{{jet.controlname}}"
+                                          color="primary"
+                                          (change)="openHideTool(jet.controlname,department.controlname,$event)">
+                                          {{jet.controlname}}
+                                        </mat-checkbox>
+
+
+                                            <div class="wrapJetCheckboxSecondChild">
+                                                <mat-form-field *ngIf="viewToolBlock.includes(department.controlname+jet.controlname)">
+                                                  <mat-label>{{jet.controlname}}</mat-label>
+                                                  <mat-select 
+                                                    multiple 
+                                                    formControlName="{{jet.controlname}}t">
+                                                    <mat-option  *ngFor="let tool of jet.child | toArr"  [value]="tool">{{tool}}</mat-option>
+                                                  </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </mat-expansion-panel>
+                              </div>
+                            </div>
+                          </mat-accordion>
+                        </div>
+                  </form>
+                </section>
+
+                <section formGroupName="Department" *ngIf="viewRadioBlock === 'Department'">
+                  <mat-checkbox *ngFor="let department of departments" formControlName="{{department.controlname}}"
+                    labelPosition="after" color="primary">
+                    {{department.label}}
+                  </mat-checkbox>
+                </section>
+
+              </div>
+
+            </div>
+
+
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
-      <div class="wrap-form-block swr-block" *ngIf="swr">
-        <label>
-            <div class="title-block">Show Swr's By: </div>
-        </label>
+
+      <div class="wrap-hidden-block">
+        <mat-accordion *ngIf="swr">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title></mat-panel-title>
+              <mat-panel-description>Show Swr's By: </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="wrap-form-block swr-block">
+              <label>
+                <div class="title-block">Show Swr's By: </div>
+              </label>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
-      <div class="wrap-form-block esp-block" *ngIf="esp">
-          <label>
-              <div class="title-block">Show Esp's By: </div>
-          </label>
+
+      <div class="wrap-hidden-block">
+        <mat-accordion *ngIf="esp">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title></mat-panel-title>
+              <mat-panel-description>Show Esp's By: </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="wrap-form-block esp-block">
+              <label>
+                <div class="title-block">Show Esp's By: </div>
+              </label>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
+
       <!--Show/Hidden blocks ----end-->
 
     </div>
     <div class="wrap-form-button">
-      <button 
-      mat-flat-button 
-      color="primary" 
-      type="submit" 
-      [disabled]="!editForm.valid">
+      <button mat-flat-button color="primary" type="submit" [disabled]="!editForm.valid">
         Save
-    </button>
+      </button>
     </div>
   </form>
 </div>

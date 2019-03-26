@@ -1,5 +1,6 @@
 .wrap-form{
     display:flex;
+    flex-direction: column;
     flex-wrap: wrap;
 }
 section, mat-radio-group{
@@ -7,9 +8,8 @@ section, mat-radio-group{
     flex-direction: column;
 }
 .wrap-form-block{
-    margin:30px;
+    margin:10px;
     padding: 10px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 .margin-right{
     margin-right:30px;
@@ -17,7 +17,13 @@ section, mat-radio-group{
 .section-margin{
     display: flex;
 }
-.section-margin section{
+.section-margin > section {
+    flex-grow: 1;
+}
+.section-margin :nth-child(1){
+   flex-grow: 0;
+}
+.section-margin > section{
    margin-right:2em;
 }
 .title-block{
@@ -47,4 +53,30 @@ section, mat-radio-group{
 }
 .wrap-checkbox-section mat-checkbox{
     margin: 1.5em;
+}
+.wrap-hidden-block{
+    margin: 20px 0;
+}
+
+.jet-block{
+    flex-direction: row;
+}
+.wrap-accordion-jet, .jetForm{
+    width:100%;
+}
+.margin-accordion{
+    margin: 10px 0;
+}
+.wrap-checkbox-jet{
+    display: flex;
+    flex-direction: column;
+}
+.wrapJetCheckboxFirstChild{
+    flex-grow: 1 !important;
+}
+.wrapJetCheckboxSecondChild{
+    flex-grow: 2;
+}
+.wrap-checkbox-jet > div > mat-checkbox{
+    margin-right: 10em;
 }
