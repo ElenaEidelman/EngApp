@@ -21,6 +21,7 @@ export class SidenavComponent implements OnInit,OnDestroy {
 
   getMenu(){
     this.dataService.getMenuForSideNav(this.userName).subscribe((result: Menu[]) => {
+      //debugger
       this.menuForSideNav = result["menu"];
     });
   }

@@ -67,7 +67,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
   jets;
   departments;
   //jetsArr = [];
-  showDmrsBy = ['Waiting For','Jet','Department'];
+  showDmrsBy = ['Jet','Department'];
 
   viewRadioBlock: string = "";
   viewJetBlock: string = "";
@@ -178,12 +178,6 @@ export class EditprofileComponent implements OnInit, OnDestroy {
         jetFilterObj.push({department: dep, jets: jetData});
       }
     });
-    //convert jetFilter to Jet class with parameters that only true
-    // Object.keys(jetFilter).forEach(function (item) {
-    //   if(jetFilter[item] == true){
-    //     jetFilterObj.push({JET: item, show : jetFilter[item]});
-    //   }
-    // });
 
      //convert departmentFilter to Department class with parameters that only true
     Object.keys(departmentFilter).forEach((item,index) => {

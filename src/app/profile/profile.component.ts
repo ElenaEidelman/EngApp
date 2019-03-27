@@ -5,6 +5,7 @@ import {TooltipPosition} from '@angular/material';
 import {FormControl} from '@angular/forms';
 import { Menu } from '../classes/menu';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LOCALE_DATA } from '@angular/common/src/i18n/locale_data';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class ProfileComponent implements OnInit {
   }
   getUserDetails(username){
     this.dataService.getUserDetails(username).subscribe(result => {
-      //debugger
+     // debugger
       let userDetails = {
         username:username,
         name: result[0],

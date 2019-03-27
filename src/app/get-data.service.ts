@@ -78,10 +78,13 @@ export class GetDataService implements OnInit {
   }
 
 
-  getDmrsList(){
-    return this.http.get(`${this.baseUrl}/dmrs/getDmrs`).pipe(result => {
-      return result;
-    });
+  getDmrsList(data:any){
+    //debugger
+    return this.http.post(`${this.baseUrl}/dmrs/DmrList`,new String(data)).pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 
   saveUserProfileDetails(details: any){
@@ -99,5 +102,20 @@ export class GetDataService implements OnInit {
     {
       console.log(err);
     }
+  }
+
+  getJetDataForViewDmr(username: string){
+    return this.http.post(`${this.baseUrl}/dmrs/ProvideJetDataForViewDmr`,new String(username)).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+  getDepartmentDataForViewDmr(username: string){
+    return this.http.post(`${this.baseUrl}/dmrs/DepartmentDataForViewDmr`,new String(username)).pipe(
+      map(result => {
+        return result;
+      })
+    );
   }
 }

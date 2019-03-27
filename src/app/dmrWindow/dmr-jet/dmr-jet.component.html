@@ -1,3 +1,7 @@
-<p>
-  dmr-jet works!
-</p>
+<div class="title">
+  <h2>Dmr's by Jet</h2>
+  <mat-spinner *ngIf="!dataSource" class="spinner"></mat-spinner>
+</div>
+<div *ngIf="dataSource">
+  <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection"></app-table>
+</div>

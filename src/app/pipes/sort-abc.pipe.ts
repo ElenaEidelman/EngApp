@@ -6,17 +6,14 @@ import { Filter } from '../classes/filter';
 })
 export class SortABCPipe implements PipeTransform {
 
-  transform(filter:Filter[]){
+  transform(value: any){
 
-    // debugger
-
-    // if (filter != null){
-    //   return filter.sort((a, b) => {
-    //     if(a.controlname < b.controlname) { return -1; }
-    //     if(a.controlname > b.controlname) { return 1; }
-    //     return 0;
-    // })
-    // }
+    let arr = [];
+    value.forEach(element => {
+      arr.push(element);
+    });
+    let arrABC = arr.sort((a, b) => (a.controlname > b.controlname) ? 1 : -1);
+    return arrABC;
   }
 
 }

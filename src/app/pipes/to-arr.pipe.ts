@@ -21,7 +21,6 @@ export class ToArrPipe implements PipeTransform {
     value.forEach(element => {
       arr.push(element.controlname)
     });
-    return arr;
+    return arr.sort();
   }
-
 }

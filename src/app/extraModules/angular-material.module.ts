@@ -11,6 +11,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTableModule} from '@angular/material/table';
+
+
 
 
 
@@ -29,7 +32,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -42,7 +46,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCheckboxModule,
     MatRadioModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
   ]
 })
 export class AngularMaterialModule { }

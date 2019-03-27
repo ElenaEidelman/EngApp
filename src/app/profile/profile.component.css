@@ -16,7 +16,7 @@
 .side-bar{
     background: #003da7;
     height: calc(100vh - 100px);
-    width: 250px;
+    width: 130px;
     box-shadow: 5px 0 5px -5px rgba(0,0,0,0.9), inset 0 5px 7px -5px rgba(0,0,0,0.9)
 }
 
@@ -24,7 +24,7 @@
     display: flex;
 }
 .content{
-    width: calc(100% - 250px);
+    width: calc(100% - 130px);
 }
 .wrap-buttons button{
     margin:10px;

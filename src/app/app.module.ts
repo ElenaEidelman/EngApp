@@ -28,6 +28,7 @@ import { DmrJetComponent } from './dmrWindow/dmr-jet/dmr-jet.component';
 import { DmrWaitingforComponent } from './dmrWindow/dmr-waitingfor/dmr-waitingfor.component';
 import { SortABCPipe } from './pipes/sort-abc.pipe';
 import { ToArrPipe } from './pipes/to-arr.pipe';
+import { TableComponent } from './table/table.component';
 
 
 
@@ -51,6 +52,7 @@ import { ToArrPipe } from './pipes/to-arr.pipe';
     DmrWaitingforComponent,
     SortABCPipe,
     ToArrPipe,
+    TableComponent,
   ],
   imports: [
     BrowserModule,

@@ -50,7 +50,7 @@
 
                 <section formGroupName="Jet" *ngIf="viewRadioBlock === 'Jet'" class="jet-block">
                   <div>
-                    <div *ngFor="let checkboxjet of jets; let i = index " class="wrapJetCheckboxBlock">
+                    <div *ngFor="let checkboxjet of jets | sortABC; let i = index " class="wrapJetCheckboxBlock">
                       <mat-checkbox formControlName="{{checkboxjet.controlname}}" labelPosition="after" color="primary"
                         (change)="openHideJet(checkboxjet.controlname,$event)">
                         {{checkboxjet.label}}
@@ -62,7 +62,7 @@
                   <form [formGroup]="jetForm" class="jetForm">
                       <div class="wrap-accordion-jet">
                           <mat-accordion>
-                            <div *ngFor="let department of jets; let i = index" class="margin-accordion" formGroupName="{{department.controlname}}">
+                            <div *ngFor="let department of jets | sortABC; let i = index" class="margin-accordion" formGroupName="{{department.controlname}}">
                               <div *ngIf="viewJetBlock.includes(department.controlname)">
                                 <mat-expansion-panel *ngIf="department.child.length > 0">
                                   <mat-expansion-panel-header>
@@ -77,8 +77,9 @@
       
                                   <div class="wrapJetCheckbox">
                                     <div class="wrap-checkbox-jet wrapJetCheckboxFirstChild">
-                                      <div *ngFor="let jet of department.child" style="display:flex;flex-grow: 1">
+                                      <div *ngFor="let jet of department.child | sortABC" style="display:flex;">
                                         <mat-checkbox labelPosition="after" 
+                                          style="flex-grow:1"
                                           formControlName="{{jet.controlname}}"
                                           color="primary"
                                           (change)="openHideTool(jet.controlname,department.controlname,$event)">
@@ -86,16 +87,16 @@
                                         </mat-checkbox>
 
 
-                                            <div class="wrapJetCheckboxSecondChild">
-                                                <mat-form-field *ngIf="viewToolBlock.includes(department.controlname+jet.controlname)">
-                                                  <mat-label>{{jet.controlname}}</mat-label>
-                                                  <mat-select 
-                                                    multiple 
-                                                    formControlName="{{jet.controlname}}t">
-                                                    <mat-option  *ngFor="let tool of jet.child | toArr"  [value]="tool">{{tool}}</mat-option>
-                                                  </mat-select>
-                                                </mat-form-field>
-                                            </div>
+                                        <div class="wrapJetCheckboxSecondChild" style="flex-grow:2">
+                                            <mat-form-field *ngIf="viewToolBlock.includes(department.controlname+jet.controlname)">
+                                              <mat-label>{{jet.controlname}}</mat-label>
+                                              <mat-select 
+                                                multiple 
+                                                formControlName="{{jet.controlname}}t">
+                                                <mat-option  *ngFor="let tool of jet.child | toArr"  [value]="tool">{{tool}}</mat-option>
+                                              </mat-select>
+                                            </mat-form-field>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>

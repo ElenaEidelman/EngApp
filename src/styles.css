@@ -18,6 +18,13 @@ ul li a, a:hover {
 .wrap-component{
   padding: 10px;
 }
+.wrap-sidenav ul{
+  padding: 0;
+  text-align: center;
+}
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type{
+  padding-left: 0 !important;
+}
 /* .mat-expansion-panel-header{
   background: rgba(139, 176, 244,1);
 }
