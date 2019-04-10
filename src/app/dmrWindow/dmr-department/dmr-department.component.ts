@@ -16,8 +16,9 @@ export class DmrDepartmentComponent implements OnInit {
   selection = new SelectionModel<DmrList>(true, []);
   displayedColumns: string[] = [];
   dataSource;
-  
+  noData: boolean = false;
   dmrsData;
+  displayedData = "Department";
 
   ngOnInit() {
     this.getDepartmentDmrs();
@@ -26,33 +27,45 @@ export class DmrDepartmentComponent implements OnInit {
   getDepartmentDmrs(){
     let userData = localStorage.getItem("user");
     let departments = [];
-
     this.dataService.getDepartmentDataForViewDmr(userData).subscribe(
       result => {
-        var arr = JSON.parse((result.toString().split("][")).toString());
-        arr.map(res => {
-            departments.push(res.Name);
-        });
-
-
-        let dataToDb = {
-          dataBy: 'Department',
-          departments: departments,
-        }
-        this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
-          result => {
-            this.dmrsData = result;
-            let obj = Object.create(DmrList);
-            obj = result;
-            //debugger
-            this.dataSource = new MatTableDataSource<DmrList>(obj);
-            this.displayedColumns.push('select');
-            //debugger
-            Object.keys(obj[0]).forEach((item)=>{
-              this.displayedColumns.push(item);
-            });
+        if(result != "[]"){
+          var arr = JSON.parse((result.toString().split("][")).toString());
+          arr.map(res => {
+              departments.push(res.Name);
+          });
+  
+  
+          let dataToDb = {
+            dataBy: 'Department',
+            departments: departments,
           }
-        );
+          this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
+            result => {
+              if(Object.keys(result).length > 0){
+
+                this.dmrsData = result;
+                let obj = Object.create(DmrList);
+                obj = result;
+                //debugger
+                this.dataSource = new MatTableDataSource<DmrList>(obj);
+                this.displayedColumns.push('select');
+                //debugger
+                Object.keys(obj[0]).forEach((item)=>{
+                  this.displayedColumns.push(item);
+                });
+              }
+              else{
+                this.dataSource = [];
+                this.noData = true;
+              }
+            }
+          );
+        }
+        else{
+          this.dataSource = [];
+          this.noData = true;
+        }
       }
     );
   }

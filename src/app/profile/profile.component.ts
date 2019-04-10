@@ -36,7 +36,6 @@ export class ProfileComponent implements OnInit {
   }
   getUserDetails(username){
     this.dataService.getUserDetails(username).subscribe(result => {
-     // debugger
       let userDetails = {
         username:username,
         name: result[0],
@@ -44,7 +43,8 @@ export class ProfileComponent implements OnInit {
         jobTitle:result[4],
         mobile: result[5],
         badge:result[9],
-        department:result[10]
+        department:result[10],
+        departmentForDmr: result[12]
       }
       localStorage.setItem('userDetails', JSON.stringify(userDetails));
       this.userDetails = result;

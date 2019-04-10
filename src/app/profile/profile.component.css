@@ -17,15 +17,17 @@
     background: #003da7;
     height: calc(100vh - 100px);
     width: 130px;
-    box-shadow: 5px 0 5px -5px rgba(0,0,0,0.9), inset 0 5px 7px -5px rgba(0,0,0,0.9)
+    box-shadow: 5px 0 5px -5px rgba(0,0,0,0.9), inset 0 5px 7px -5px rgba(0,0,0,0.9);
+    padding: 15px 0;
 }
 
 .wrap_content{
     display: flex;
+    height: calc(100vh - 100px);
 }
-.content{
+/* .content{
     width: calc(100% - 130px);
-}
+} */
 .wrap-buttons button{
     margin:10px;
 }

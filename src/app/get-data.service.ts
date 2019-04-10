@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './classes/users';
 import { Menu } from './classes/menu';
 import { OnInit,AfterViewInit } from '@angular/core';
+import { stringify } from '@angular/compiler/src/util';
 
 
 
@@ -31,6 +32,17 @@ export class GetDataService implements OnInit {
     }
     this.menu.push(menu);
     this.menuData.emit(this.menu);
+  }
+
+  changeSubPath(showBy: any){
+    let index = this.menu.findIndex(element => element['label'] == showBy["menuName"]);
+    if(index > -1){
+      let changePathOf = this.menu.find(element => element["label"] == showBy["menuName"]);
+      changePathOf["path"] = showBy["viewby"];
+      this.menu.splice(index,1);
+      this.menu.push(changePathOf);
+      this.menuData.emit(this.menu);
+    }
   }
 
   removeFromSideMenu(menu:Menu){
@@ -113,6 +125,21 @@ export class GetDataService implements OnInit {
   }
   getDepartmentDataForViewDmr(username: string){
     return this.http.post(`${this.baseUrl}/dmrs/DepartmentDataForViewDmr`,new String(username)).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+  saveToArchion(data:any){
+    return this.http.post(`${this.baseUrl}/dmrs/SaveToArchion`,new String(data)).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+
+  getArchionList(data:any){
+    return this.http.post(`${this.baseUrl}/dmrs/ArchionList`,new String(JSON.stringify(data))).pipe(
       map(result => {
         return result;
       })

@@ -1,11 +1,17 @@
 table {
     width: 100%;
   }
-tr > td:nth-child(odd), tr > th:nth-child(odd){
+ tr > th:nth-child(odd){
   background: lightgray;
 }
-tr > td:nth-child(even), tr > th:nth-child(even){
+ tr > th:nth-child(even){
   background: lightblue;
+}
+tr > td:nth-child(even){
+  background: rgba(218, 240, 248,1);
+}
+tr > td:nth-child(odd){
+  background:rgba(230, 230, 230,1);
 }
 tr td{
   text-align: center;
@@ -17,4 +23,16 @@ tr th{
 }
 th{
   text-align: center;
+}
+.redColor{
+  background: red !important;
+  color:#fff;
+}
+.archion-button button{
+  background: lightslategray;
+  color:#fff;
+}
+.wrap-filter-button{
+  display: flex;
+  justify-content: space-between;
 }

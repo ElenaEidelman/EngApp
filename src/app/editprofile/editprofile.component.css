@@ -80,3 +80,11 @@ section, mat-radio-group{
 .wrap-checkbox-jet > div > mat-checkbox{
     margin-right: 10em;
 }
+.option-selectAll{
+    background: #bfbfbf;
+}
+.select-deselct-buttons{
+    display: flex;
+    justify-content: space-around;
+    margin: 15px;
+}

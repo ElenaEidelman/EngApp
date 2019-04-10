@@ -20,9 +20,9 @@ export class DmrComponent implements OnInit {
   ngOnInit() {
     this.getViewData();
   }
-  openPage(page: string) {
-    this.openP.emit(page);
-  }
+  // openPage(page: string) {
+  //   this.openP.emit(page);
+  // }
   getViewData() {
     let viewDmrBy;
     this.dataService.getMenuForSideNav(this.userName).subscribe(result => {
@@ -33,6 +33,8 @@ export class DmrComponent implements OnInit {
         case "Department": this.dmrBy = 'dmrByDepartment';
           break;
       }
+
+      //this.dataService.changeSubPath({menuName:'DMR',viewby: viewDmrBy});
 
     });
 

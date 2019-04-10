@@ -1,14 +1,11 @@
 <div class="wrap-sidenav">
   <ul>
-      <!-- <ng-container *ngFor="let sideNav of menuForSideNav">
-          <li *ngIf="sideNav.ifValid">
-            <a [routerLink]="[sideNav.src]">{{sideNav.label}}</a>
-          </li>
-      </ng-container> -->
-      <ng-container *ngFor="let sideNav of menuForSideNav">
+      <ng-container *ngFor="let sideNav of menuForSideNav; let i = index">
         <li *ngIf="sideNav.ischecked">
-          <a [routerLink]="[sideNav.controlname]">{{sideNav.label}}</a>
+          <a routerLink="{{sideNav.controlname}}{{sideNav.path}}">{{sideNav.label}}</a>
         </li>
     </ng-container>
   </ul>
 </div>
+
+

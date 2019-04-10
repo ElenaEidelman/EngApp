@@ -14,6 +14,7 @@ import { RecordComponent } from './dmrWindow/record/record.component';
 import { DmrDepartmentComponent } from './dmrWindow/dmr-department/dmr-department.component';
 import { DmrJetComponent } from './dmrWindow/dmr-jet/dmr-jet.component';
 import { DmrWaitingforComponent } from './dmrWindow/dmr-waitingfor/dmr-waitingfor.component';
+import { ArchionComponent } from './dmrWindow/archion/archion.component';
 
 
 
@@ -33,7 +34,8 @@ const routes: Routes = [
             },
             {path:'newdmr',component:NewdmrComponent},
             {path:'dmrsearch',component:DmrsearchComponent},
-            {path: 'record', component:RecordComponent}
+            {path: 'record', component:RecordComponent},
+            {path: 'archion', component:ArchionComponent}
 
                 ]
       },

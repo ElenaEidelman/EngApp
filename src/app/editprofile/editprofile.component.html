@@ -25,6 +25,8 @@
 
     <div class="wrap-form">
       <!--Show/Hidden blocks ---start-->
+
+      <!--Dmr-->
       <div class="wrap-hidden-block">
         <mat-accordion *ngIf="dmr">
           <mat-expansion-panel>
@@ -60,57 +62,77 @@
 
                   <!-- View blocks of jet by selected checkbox -->
                   <form [formGroup]="jetForm" class="jetForm">
-                      <div class="wrap-accordion-jet">
-                          <mat-accordion>
-                            <div *ngFor="let department of jets | sortABC; let i = index" class="margin-accordion" formGroupName="{{department.controlname}}">
-                              <div *ngIf="viewJetBlock.includes(department.controlname)">
-                                <mat-expansion-panel *ngIf="department.child.length > 0">
-                                  <mat-expansion-panel-header>
-                                    <mat-panel-title>
-      
-                                    </mat-panel-title>
-                                    <mat-panel-description>
-                                      {{department.label}}
-                                    </mat-panel-description>
-                                  </mat-expansion-panel-header>
-      
-      
-                                  <div class="wrapJetCheckbox">
-                                    <div class="wrap-checkbox-jet wrapJetCheckboxFirstChild">
-                                      <div *ngFor="let jet of department.child | sortABC" style="display:flex;">
-                                        <mat-checkbox labelPosition="after" 
-                                          style="flex-grow:1"
-                                          formControlName="{{jet.controlname}}"
-                                          color="primary"
-                                          (change)="openHideTool(jet.controlname,department.controlname,$event)">
-                                          {{jet.controlname}}
-                                        </mat-checkbox>
+                    <div class="wrap-accordion-jet">
+                      <mat-accordion>
+                        <div *ngFor="let department of jets | sortABC; let i = index" class="margin-accordion"
+                          formGroupName="{{department.controlname}}">
+                          <div *ngIf="viewJetBlock.includes(department.controlname)">
+                            <mat-expansion-panel *ngIf="department.child.length > 0">
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                  {{department.label}}
+                                </mat-panel-description>
+                              </mat-expansion-panel-header>
 
 
-                                        <div class="wrapJetCheckboxSecondChild" style="flex-grow:2">
-                                            <mat-form-field *ngIf="viewToolBlock.includes(department.controlname+jet.controlname)">
-                                              <mat-label>{{jet.controlname}}</mat-label>
-                                              <mat-select 
-                                                multiple 
-                                                formControlName="{{jet.controlname}}t">
-                                                <mat-option  *ngFor="let tool of jet.child | toArr"  [value]="tool">{{tool}}</mat-option>
-                                              </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                      </div>
+                              <div class="wrapJetCheckbox">
+                                <div class="wrap-checkbox-jet wrapJetCheckboxFirstChild">
+                                  <div *ngFor="let jet of department.child | sortABC;  let i = index"
+                                    style="display:flex;">
+                                    <mat-checkbox labelPosition="after" style="flex-grow:1"
+                                      formControlName="{{jet.controlname}}" color="primary"
+                                      (change)="openHideTool(jet.controlname,department.controlname,$event)">
+                                      {{jet.controlname}}
+                                    </mat-checkbox>
+
+
+                                    <div class="wrapJetCheckboxSecondChild" style="flex-grow:2">
+                                      <mat-form-field
+                                        *ngIf="viewToolBlock.includes(department.controlname+jet.controlname)">
+                                        <mat-label>{{jet.controlname}}</mat-label>
+                                        <mat-select multiple formControlName="{{jet.controlname}}t">
+                                          <div class="select-deselct-buttons">
+                                            <button mat-raised-button class="mat-primary fill text-sm"
+                                              (click)="selectAll(department.controlname,jet.controlname)">
+                                              Select All
+                                            </button>
+                                            <button mat-raised-button class="mat-primary fill text-sm eta-margin-all"
+                                              (click)="deselectAll(department.controlname,jet.controlname)">
+                                              Deselect All
+                                            </button>
+                                          </div>
+                                          <!-- <mat-option 
+                                            class="option-selectAll" 
+                                            (onSelectionChange)="toggleAllSelection(department.controlname,jet.controlname,$event)" 
+                                            [value]="department.controlname+'-'+jet.controlname"
+                                            #allSelected>Select All {{allSelected.value}}
+                                          </mat-option> -->
+                                          <mat-option *ngFor="let tool of jet.child | toArr" [value]="tool">{{tool}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
                                     </div>
                                   </div>
-                                </mat-expansion-panel>
+                                </div>
                               </div>
-                            </div>
-                          </mat-accordion>
+                            </mat-expansion-panel>
+                          </div>
                         </div>
+                      </mat-accordion>
+                    </div>
                   </form>
                 </section>
 
                 <section formGroupName="Department" *ngIf="viewRadioBlock === 'Department'">
-                  <mat-checkbox *ngFor="let department of departments" formControlName="{{department.controlname}}"
-                    labelPosition="after" color="primary">
+                  <mat-checkbox 
+                    *ngFor="let department of departments" 
+                    formControlName="{{department.controlname}}"
+                    labelPosition="after" 
+                    color="primary"
+                    (change)="toggleVisibility('department-' + department.controlname, $event)">
                     {{department.label}}
                   </mat-checkbox>
                 </section>
@@ -124,6 +146,7 @@
         </mat-accordion>
       </div>
 
+      <!--Swr-->
       <div class="wrap-hidden-block">
         <mat-accordion *ngIf="swr">
           <mat-expansion-panel>
@@ -140,6 +163,7 @@
         </mat-accordion>
       </div>
 
+      <!--Esp-->
       <div class="wrap-hidden-block">
         <mat-accordion *ngIf="esp">
           <mat-expansion-panel>

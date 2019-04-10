@@ -9,25 +9,40 @@
     </div>
     <div class="wrap-buttons">
       <a [routerLink]="['editprofile']">
-        <button mat-flat-button
-          matTooltip="Edit profile"
-          [matTooltipPosition]="position.value">
+        <button mat-flat-button matTooltip="Edit profile" [matTooltipPosition]="position.value">
           <mat-icon>edit</mat-icon>
         </button>
       </a>
-      <button mat-flat-button (click)="logout()"
-        matTooltip="LogOut"
-        [matTooltipPosition]="position.value">
+      <button mat-flat-button (click)="logout()" matTooltip="LogOut" [matTooltipPosition]="position.value">
         <mat-icon>logout</mat-icon>
       </button>
     </div>
   </div>
   <div class="wrap_content">
-      <div class="side-bar">
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+        <div class="side-bar">
+          <app-sidenav [userName]="username"></app-sidenav>
+        </div>
+      </mat-drawer>
+
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon *ngIf="drawer.opened">arrow_back</mat-icon>
+          <mat-icon *ngIf="!drawer.opened">arrow_forward</mat-icon>
+      </button>
+      <div class="example-sidenav-content">
+
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+
+    </mat-drawer-container>
+    <!-- <div class="side-bar">
         <app-sidenav [userName]="username"></app-sidenav>
       </div>
       <div class="content">
         <router-outlet></router-outlet>
-      </div>
-    </div>
+      </div> -->
+  </div>
 </div>

@@ -3,5 +3,7 @@
   <mat-spinner *ngIf="!dataSource" class="spinner"></mat-spinner>
 </div>
 <div *ngIf="dataSource">
-  <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection"></app-table>
+  <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection" [displayedData]="displayedData">
+    <div *ngIf="noData" class="noData">No data</div>
+  </app-table>
 </div>

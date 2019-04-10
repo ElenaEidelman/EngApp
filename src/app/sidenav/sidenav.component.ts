@@ -13,6 +13,12 @@ export class SidenavComponent implements OnInit,OnDestroy {
   @Input() userName;
   menuForSideNav: Menu[] = [];
   unsub;
+  subMenu = [
+    {label: 'DMR', child:'/dmrlist/'},
+    {label: 'SWR', child:''},
+    {label: 'ESP', child:''},
+  ];
+
 
   ngOnInit() {
     this.getMenu();//menu from db
@@ -21,13 +27,55 @@ export class SidenavComponent implements OnInit,OnDestroy {
 
   getMenu(){
     this.dataService.getMenuForSideNav(this.userName).subscribe((result: Menu[]) => {
-      //debugger
-      this.menuForSideNav = result["menu"];
+      //in the future i will get: showdmrby,showswrby,showespby
+      let menu: Menu[] = [];
+
+      result["menu"].forEach(element => {
+        let pathM = this.subMenu.find(e => e.label == element.label);
+        let childOfPathM = '';
+
+        switch (element["label"]){
+          case "DMR" : switch (result["showdmrby"]){
+            case "Jet": childOfPathM = 'dmrByJet';
+            break;
+            case "Department": childOfPathM = 'dmrByDepartment';
+              break;
+            }
+            break;
+          case "SWR": childOfPathM = '';
+              break;
+          case "ESP": childOfPathM = '';
+              break;
+        }
+
+        menu.push(new Menu (element.label,element.ischecked,element.controlname,pathM.child + "/" + childOfPathM));
+      });
+      this.menuForSideNav = menu;
     });
   }
+  //if was changed
   getMenuForSideNavByUsername(){
     this.unsub = this.dataService.menuData.subscribe((result: Menu[]) => {
-      this.menuForSideNav = result;
+      let menu: Menu[] = [];
+      result.forEach((item)=>{
+        let pathM = this.subMenu.find(e => e.label == item["label"]);
+        let childOfPathM;
+        switch (item["label"]){
+          case "DMR" : switch (item["path"]){
+            case "Jet": childOfPathM = 'dmrByJet';
+            break;
+            case "Department": childOfPathM = 'dmrByDepartment';
+              break;
+            }
+            break;
+          case "SWR": childOfPathM = '';
+              break;
+          case "ESP": childOfPathM = '';
+              break;
+        }
+        menu.push(new Menu(item["label"],item["ischecked"],item["controlname"],pathM.child + "/" + childOfPathM));
+      });
+      this.menuForSideNav = menu;
     });
   }
   ngOnDestroy(){

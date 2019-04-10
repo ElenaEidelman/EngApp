@@ -1,4 +1,13 @@
-<p>
-  record works!
-</p>
-<h1>{{data}}</h1>
+<div class="wrap-record-component">
+  <h1>{{data}}</h1>
+  <div class="title">
+    <h2>Dmr's by Record</h2>
+    <mat-spinner *ngIf="!dataSource" class="spinner"></mat-spinner>
+  </div>
+  <div *ngIf="dataSource">
+    <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection"
+      [displayedData]="displayedData">
+      <div *ngIf="noData" class="noData">No data</div>
+    </app-table>
+  </div>
+</div>

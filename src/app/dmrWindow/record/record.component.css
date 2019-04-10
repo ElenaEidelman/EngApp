@@ -1,0 +1,20 @@
+.title{
+    text-align: center;
+    position: relative;
+}
+.title h2{
+    color:#222;
+    text-shadow: 0px 2px 3px #555;
+}
+.spinner{
+    position: absolute;
+    left: 50%;
+    top: -35%;
+}
+.noData{
+    text-align: center;
+    font-size: 20px;
+}
+.wrap-record-component{
+    padding: 10px;
+}

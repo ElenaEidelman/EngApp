@@ -16,6 +16,8 @@ export class DmrJetComponent implements OnInit {
   selection = new SelectionModel<DmrList>(true, []);
   displayedColumns: string[] = [];
   dataSource;
+  noData: boolean = false;
+  displayedData = "Jet";
   
   dmrsData;
  
@@ -31,37 +33,48 @@ export class DmrJetComponent implements OnInit {
 
     this.dataService.getJetDataForViewDmr(userData).subscribe(
       result => {
-        var arr = JSON.parse((result.toString().split("][")).toString());
-        arr.map(res => {
-          if(res["Name"] == null){
-            tools.push(res.toolName);
+        try{
+          let arr = JSON.parse((result.toString().split("][")).toString());
+          arr.map(res => {
+            if(res["Name"] == null){
+              tools.push(res.toolName);
+            }
+            else{
+              departments.push(res.Name);
+            }
+          });
+  
+  
+          let dataToDb = {
+            dataBy: 'Jet',
+            departments: departments,
+            tools:tools
           }
-          else{
-            departments.push(res.Name);
-          }
-        });
-
-
-        let dataToDb = {
-          dataBy: 'Jet',
-          departments: departments,
-          tools:tools
+      
+          this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
+            result => {
+              if(Object.keys(result).length > 0){
+                this.dmrsData = result;
+                let obj = Object.create(DmrList);
+                obj = result;
+                this.dataSource = new MatTableDataSource<DmrList>(obj);
+                this.displayedColumns.push('select');
+                Object.keys(obj[0]).forEach((item)=>{
+                  this.displayedColumns.push(item);
+                });
+              }
+              else{
+                this.dataSource = [];
+                this.noData = true;
+              }
+            }
+          );
         }
-    
-        this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
-          result => {
-            this.dmrsData = result;
-            let obj = Object.create(DmrList);
-            obj = result;
-            //debugger
-            this.dataSource = new MatTableDataSource<DmrList>(obj);
-            this.displayedColumns.push('select');
-            //debugger
-            Object.keys(obj[0]).forEach((item)=>{
-              this.displayedColumns.push(item);
-            });
-          }
-        );
+        catch(error){
+          this.dataSource = [];
+          this.noData = true;
+          console.log(error);
+        }
       }
     );
   }

@@ -1,0 +1,9 @@
+.spinner{
+    position: absolute;
+    left: 50%;
+    top: -35%;
+}
+.noData{
+    text-align: center;
+    font-size: 20px;
+}

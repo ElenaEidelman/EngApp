@@ -29,6 +29,7 @@ import { DmrWaitingforComponent } from './dmrWindow/dmr-waitingfor/dmr-waitingfo
 import { SortABCPipe } from './pipes/sort-abc.pipe';
 import { ToArrPipe } from './pipes/to-arr.pipe';
 import { TableComponent } from './table/table.component';
+import { ArchionComponent } from './dmrWindow/archion/archion.component';
 
 
 
@@ -53,6 +54,7 @@ import { TableComponent } from './table/table.component';
     SortABCPipe,
     ToArrPipe,
     TableComponent,
+    ArchionComponent,
   ],
   imports: [
     BrowserModule,

@@ -45,11 +45,11 @@ export class ContentComponent implements OnInit,OnChanges {
 
   getDmrDetails(){
 
-    this.dataService.getDmrsList().subscribe(
-      result => {
-        this.dmrList = result;
-      }
-    );
+    // this.dataService.getDmrsList().subscribe(
+    //   result => {
+    //     this.dmrList = result;
+    //   }
+    // );
     console.log('Dmr');
   }
   getSwrDetails(){

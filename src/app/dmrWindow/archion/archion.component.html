@@ -1,0 +1,10 @@
+<div class="wrap-component">
+    <mat-tab-group animationDuration="0ms"  >
+        
+        <mat-tab *ngFor="let tab of tabsArr" label="{{tab.table}}">
+            <app-table [displayedColumns]="displayedColumns" [dataSource]="tab.dmrNums" [selection]="selection" [displayedData]="tab.table">
+                <div *ngIf="noData" class="noData">No data</div>
+            </app-table>
+        </mat-tab>
+      </mat-tab-group>
+</div>

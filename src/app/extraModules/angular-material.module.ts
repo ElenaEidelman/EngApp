@@ -12,6 +12,8 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -33,7 +35,9 @@ import {MatTableModule} from '@angular/material/table';
     MatRadioModule,
     MatSelectModule,
     MatExpansionModule,
-    MatTableModule
+    MatTableModule,
+    MatSidenavModule,
+    MatTabsModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -47,7 +51,9 @@ import {MatTableModule} from '@angular/material/table';
     MatRadioModule,
     MatSelectModule,
     MatExpansionModule,
-    MatTableModule
+    MatTableModule,
+    MatSidenavModule,
+    MatTabsModule
   ]
 })
 export class AngularMaterialModule { }
