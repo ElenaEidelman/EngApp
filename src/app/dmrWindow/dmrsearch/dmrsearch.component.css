@@ -1,0 +1,58 @@
+.wrap-search{
+    display: flex;
+    width: 100%;
+}
+.flex-child{
+    width: 100%;
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.child-input{
+    width: 47%;
+    margin: 10px 0;
+}
+.title{
+    text-align: center;
+    position: relative;
+}
+.title h2{
+    color:#222;
+    text-shadow: 0px 2px 3px #555;
+}
+.spinner{
+    position: absolute;
+    left: 47%;
+    top: -35%;
+}
+.wrap-search mat-form-field{
+    width:100%;
+}
+mat-radio-group{
+    display: flex;
+    flex-direction: column;
+}
+.radio-title{
+    font-size: 18px;
+    font-weight: 900;
+}
+.wrap-form-button{
+    width:100%;
+    position: relative;
+}
+.wrap-form-button button{
+    margin: auto;
+    display: block;
+}
+.noData{
+    text-align: center;
+    font-size: 20px;
+}
+
+  .wrap-filter{
+    width: 100%;
+    padding: 10px;
+  }
+  

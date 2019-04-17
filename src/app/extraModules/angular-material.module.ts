@@ -14,6 +14,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+
 
 
 
@@ -37,7 +40,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatExpansionModule,
     MatTableModule,
     MatSidenavModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+
   ],
   exports: [
     BrowserAnimationsModule,
@@ -53,7 +59,9 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatExpansionModule,
     MatTableModule,
     MatSidenavModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class AngularMaterialModule { }

@@ -7,7 +7,7 @@ import { Filter } from '../classes/filter';
 export class SortABCPipe implements PipeTransform {
 
   transform(value: any){
-
+debugger
     let arr = [];
     value.forEach(element => {
       arr.push(element);

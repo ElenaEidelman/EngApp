@@ -1,6 +1,7 @@
 import { Component, OnInit, Input,    Output, EventEmitter, OnDestroy } from '@angular/core';
 import { GetDataService } from '../get-data.service';
 import { Menu } from '../classes/menu';
+import { SubPath } from '../classes/subPath';
 
 @Component({
   selector: 'app-sidenav',
@@ -36,9 +37,11 @@ export class SidenavComponent implements OnInit,OnDestroy {
 
         switch (element["label"]){
           case "DMR" : switch (result["showdmrby"]){
-            case "Jet": childOfPathM = 'dmrByJet';
-            break;
-            case "Department": childOfPathM = 'dmrByDepartment';
+            case "Jet": 
+              childOfPathM = 'dmrByJet';
+              break;
+            case "Department": 
+              childOfPathM = 'dmrByDepartment';
               break;
             }
             break;
@@ -48,7 +51,7 @@ export class SidenavComponent implements OnInit,OnDestroy {
               break;
         }
 
-        menu.push(new Menu (element.label,element.ischecked,element.controlname,pathM.child + "/" + childOfPathM));
+        menu.push(new Menu (element.label,element.ischecked,element.controlname,pathM.child + childOfPathM));
       });
       this.menuForSideNav = menu;
     });
@@ -56,16 +59,20 @@ export class SidenavComponent implements OnInit,OnDestroy {
   //if was changed
   getMenuForSideNavByUsername(){
     this.unsub = this.dataService.menuData.subscribe((result: Menu[]) => {
+      debugger
       let menu: Menu[] = [];
       result.forEach((item)=>{
         let pathM = this.subMenu.find(e => e.label == item["label"]);
-        let childOfPathM;
+        let childOfPathM = '';
         switch (item["label"]){
-          case "DMR" : switch (item["path"]){
-            case "Jet": childOfPathM = 'dmrByJet';
-            break;
-            case "Department": childOfPathM = 'dmrByDepartment';
+          case "DMR" : 
+            switch (item["path"]){
+              case "Jet": childOfPathM = 'dmrByJet';
               break;
+              case "Department": childOfPathM = 'dmrByDepartment';
+                break;
+              default: childOfPathM = item["path"] != undefined ? item["path"] : '';
+
             }
             break;
           case "SWR": childOfPathM = '';

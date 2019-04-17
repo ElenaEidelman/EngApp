@@ -28,9 +28,15 @@ th{
   background: red !important;
   color:#fff;
 }
-.archion-button button{
-  background: lightslategray;
+.wrap-button button{
   color:#fff;
+  margin:10px;
+}
+.wrap-button button.archion_button{
+  background: lightslategray;
+}
+.wrap-button button.excel_button{
+  background: #673ab7;
 }
 .wrap-filter-button{
   display: flex;

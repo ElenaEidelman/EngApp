@@ -39,8 +39,7 @@ export class GetDataService implements OnInit {
     if(index > -1){
       let changePathOf = this.menu.find(element => element["label"] == showBy["menuName"]);
       changePathOf["path"] = showBy["viewby"];
-      this.menu.splice(index,1);
-      this.menu.push(changePathOf);
+      this.menu[index] = changePathOf;
       this.menuData.emit(this.menu);
     }
   }
@@ -83,7 +82,41 @@ export class GetDataService implements OnInit {
   getMenuForSideNav(username: string):Observable<any>{
     return this.http.post(`${this.baseUrl}/users/ValidMenuForUser`,new String(username)).pipe(
       map(result => {
-        this.menu = Object.create(result["menu"]);
+
+        // let subMenu = [
+        //   {label: 'DMR', child:'/dmrlist/'},
+        //   {label: 'SWR', child:''},
+        //   {label: 'ESP', child:''},
+        // ];
+
+
+        let menu: Menu[] = [];
+
+        result["menu"].forEach(element => {
+          // let pathM = subMenu.find(e => e.label == element.label);
+          let childOfPathM = '';
+  
+          switch (element["label"]){
+            case "DMR" : switch (result["showdmrby"]){
+              case "Jet": 
+                childOfPathM = 'dmrByJet';
+                break;
+              case "Department": 
+                childOfPathM = 'dmrByDepartment';
+                break;
+              }
+              break;
+            case "SWR": childOfPathM = '';
+                break;
+            case "ESP": childOfPathM = '';
+                break;
+          }
+  
+          menu.push(new Menu (element.label,element.ischecked,element.controlname,childOfPathM));
+        });
+
+
+        this.menu = Object.create(menu);
         return result;
       })
     );
@@ -140,6 +173,13 @@ export class GetDataService implements OnInit {
 
   getArchionList(data:any){
     return this.http.post(`${this.baseUrl}/dmrs/ArchionList`,new String(JSON.stringify(data))).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+  getDataForGlobalSearch(){
+    return this.http.get(`${this.baseUrl}/users/dataForGlobalSearch`).pipe(
       map(result => {
         return result;
       })

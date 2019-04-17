@@ -10,6 +10,7 @@ import { resource } from 'selenium-webdriver/http';
 import { Jet } from '../classes/jet';
 import { Department } from '../classes/department';
 import { MatOption } from '@angular/material';
+import { SubPath } from '../classes/subPath';
 
 @Component({
   selector: 'app-editprofile',
@@ -25,49 +26,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     private dialog: MatDialog) { }
 
   createMenuFrom: Menu[];
-
-
-
-  // jets = [
-  //   {controlname:"all",label:"All",ischecked:false, child:[]},
-  //   {controlname:"etch1",label:"Etch1",ischecked:false,child:[
-  //     {controlname:"sorters",label:"SORTERS",ischecked:false,child:[
-  //       {controlname:"toolsorters1",label:"TOOLSORTERS1",ischecked:true,child:[]},
-  //       {controlname:"toolsorters2",label:"TOOLSORTERS2",ischecked:true,child:[]},
-  //       {controlname:"toolsorters3",label:"TOOLSORTERS3",ischecked:true,child:[]},
-  //       {controlname:"toolsorters4",label:"TOOLSORTERS4",ischecked:true,child:[]}
-  //     ]},
-  //     {controlname:"dsi-etch",label:"DSI-Etch",ischecked:false,child:[
-  //       {controlname:"tooldsietch1",label:"TOOLDSIETCH1",ischecked:true,child:[]},
-  //       {controlname:"tooldsietch2",label:"OOLDSIETCH2",ischecked:true,child:[]},
-  //       {controlname:"tooldsietch3",label:"OOLDSIETCH3",ischecked:true,child:[]},
-  //       {controlname:"tooldsietch4",label:"TOOLDSIETCH4",ischecked:true,child:[]}
-  //     ]},
-  //     {controlname:"ox-etch",label:"Ox-Etch",ischecked:false,child:[
-  //       {controlname:"tooloxetchetch1",label:"TOOLOXETCHETCH1",ischecked:true,child:[]},
-  //       {controlname:"tooloxetchetch2",label:"TOOLOXETCHETCH2",ischecked:true,child:[]},
-  //       {controlname:"tooloxetchetch3",label:"TOOLOXETCHETCH3",ischecked:true,child:[]},
-  //       {controlname:"tooloxetchetch4",label:"TOOLOXETCHETCH4",ischecked:true,child:[]}
-  //     ]}
-  //   ]},
-  //   {controlname:"photo1",label:"PHOTO1",ischecked:false,child:[
-  //     {controlname:"sorters",label:"SORTERS",ischecked:false,child:[
-  //       {controlname:"toolsortersphoto1",label:"TOOLSORTERSPHOTO1",ischecked:true,child:[]},
-  //       {controlname:"toolsortersphoto2",label:"TOOLSORTERSPHOTO2",ischecked:true,child:[]},
-  //       {controlname:"toolsortersphoto3",label:"TOOLSORTERSPHOTO3",ischecked:true,child:[]},
-  //       {controlname:"toolsortersphoto4",label:"TOOLSORTERSPHOTO4",ischecked:true,child:[]}
-  //     ]},
-  //     {controlname:"quench",label:"Quench",ischecked:false,child:[
-  //       {controlname:"toolquencphoto1",label:"TOOLQUENCHPHOTO1",ischecked:true,child:[]},
-  //       {controlname:"toolquencphoto2",label:"TOOLQUENCHPHOTO2",ischecked:true,child:[]},
-  //       {controlname:"toolquencphoto3",label:"TOOLQUENCHPHOTO3",ischecked:true,child:[]},
-  //       {controlname:"toolquencphoto4",label:"TOOLQUENCHPHOTO4",ischecked:true,child:[]}
-  //     ]}
-  //   ]},
-  // ];
   jets;
   departments;
-
   showDmrsBy = ['Jet', 'Department'];
 
   viewRadioBlock: string = "";
@@ -208,7 +168,6 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
   //check box checked
   toggleVisibility(controlName: string, event) {
-
     //select all in check box
     if (controlName.includes('all')) {
       let pref = controlName.substring(0, controlName.indexOf('-'));
@@ -227,7 +186,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     }
     //select one check box
     else {
-      let showMenu: Menu = new Menu(controlName.toUpperCase(), true, controlName.toLowerCase());
+      let path = this.editForm.get('showDmrBy').value;
+      let showMenu: Menu = new Menu(controlName.toUpperCase(), true, controlName.toLowerCase(),path);
       if (event.checked) {
         this.dataService.sideMenu(showMenu);
       }
@@ -262,7 +222,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
   //radio button selected
   radioChange(event) {
-    this.dataService.changeSubPath({ menuName: 'DMR', viewby: event.value });
+    debugger
+    this.dataService.changeSubPath(new SubPath('DMR',event.value));
     this.viewRadioBlock = event.value;
   }
 
@@ -324,19 +285,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
         this.createForm();
       });
   }
-  //select all tools by jet
-  // toggleAllSelection(department: string, control: string, event) {
-  //   let toolObj = [];
-  //   if (event.source.selected) {
-  //     // this.jetForm.get(department).get(control + 't').patchValue(['dummy','dummy-tf','dummy-wt','dummycmp']);
-  //     this.jets.find(d => d.controlname == department).child.find(j => j.controlname == control).child.forEach(t => {
-  //       toolObj.push(t.controlname)
-  //     });
-  //     this.jetForm.get(department).get(control + 't').patchValue(toolObj);
-  //   } else {
-  //     this.jetForm.get(department).get(control + 't').patchValue([]);
-  //   }
-  // }
+
 
   selectAll(department: string, control: string) {
     let toolObj = [];

@@ -1,3 +1,199 @@
-<p>
-  dmrsearch works!
-</p>
+<div class="wrap-component">
+  <div class="title">
+    <h2>Dmr Search</h2>
+  </div>
+  <form [formGroup]="dmrSearchForm">
+    <div class="wrap-search">
+      <div class="flex-child">
+        <div class="child-input">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Lot #" value="" formControlName="LotNumber">
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Dmr #" value="" formControlName="DmrNumber">
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Product" value="" formControlName="Product">
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Description" value="" formControlName="Description">
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Area</mat-label>
+            <mat-select formControlName="Area">
+              <mat-option *ngFor="let area of areaArr" [value]="area">{{area}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Location</mat-label>
+            <section>
+              <mat-select multiple formControlName="Location">
+                  <mat-form-field class="wrap-filter">
+                      <input matInput focused="'true'" type="text"
+                        (keyup)="applyFilter('selectedLocations','locationArr',$event.target.value)" autocomplete="off" placeholder="search">
+                    </mat-form-field>
+                <mat-option [value]="location" *ngFor="let location of selectedLocations"
+                  (onSelectionChange)="change('Location',$event)">{{location}}</mat-option>
+              </mat-select>
+            </section>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select multiple formControlName="Status">
+              <mat-option [value]="status" *ngFor="let status of statusArr"
+                (onSelectionChange)="change('Status',$event)">
+                {{status}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Dmr Type</mat-label>
+            <mat-select formControlName="DmrType">
+              <mat-option [value]="type" *ngFor="let type of dmrType">{{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="Category">
+              <mat-option [value]="category" *ngFor="let category of categoryArr">{{category}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Defect Group 1</mat-label>
+            <mat-select formControlName="Defect1">
+              <mat-form-field class="wrap-filter">
+                <input matInput focused="'true'" type="text"
+                  (keyup)="applyFilter('selectedDefectGroup1','defectGroup1Arr',$event.target.value)" autocomplete="off" placeholder="search">
+              </mat-form-field>
+              <mat-option [value]="def1" *ngFor="let def1 of selectedDefectGroup1">{{def1}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Defect Group 2</mat-label>
+            <mat-select formControlName="Defect2">
+              <mat-form-field class="wrap-filter">
+                <input matInput focused="'true'" type="text"
+                  (keyup)="applyFilter('selectedDefectGroup2','defectGroup2Arr',$event.target.value)" autocomplete="off" placeholder="search">
+              </mat-form-field>
+              <mat-option [value]="def2" *ngFor="let def2 of selectedDefectGroup2">{{def2}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="flex-child">
+        <div class="child-input">
+          <mat-form-field>
+            <input matInput [matDatepicker]="pickerFrom" placeholder="Date from" formControlName="DateFrom">
+            <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFrom></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <input matInput [matDatepicker]="pickerTo" placeholder="Date To" formControlName="DateTo">
+            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+            <mat-datepicker #pickerTo></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Title</mat-label>
+            <mat-select multiple formControlName="Title">
+                <mat-form-field class="wrap-filter">
+                    <input matInput focused="'true'" type="text"
+                      (keyup)="applyFilter('selectedTitels','titlesArr',$event.target.value)" autocomplete="off" placeholder="search">
+                  </mat-form-field>
+              <mat-option [value]="title" *ngFor="let title of selectedTitels" (onSelectionChange)="change('Title',$event)">{{title}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Waiting For</mat-label>
+            <mat-select multiple formControlName="WaitingFor">
+                <mat-form-field class="wrap-filter">
+                    <input matInput focused="'true'" type="text"
+                      (keyup)="applyFilter('selectedWaitingFor','waitingForArr',$event.target.value)" autocomplete="off" placeholder="search">
+                  </mat-form-field>
+              <mat-option [value]="user" *ngFor="let user of selectedWaitingFor"  (onSelectionChange)="change('WaitingFor',$event)">{{user}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="child-input">
+          <mat-radio-group aria-label="Formal 8D" color="primary" class="radio-buttons" formControlName="Formal8D">
+            <span class="radio-title">Formal 8D</span>
+            <mat-radio-button color="primary" value="{{choice}}" *ngFor="let choice of yesNoSelection">{{choice}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="child-input">
+          <mat-radio-group aria-label="MRB" color="primary" class="radio-buttons" formControlName="Mrb">
+            <span class="radio-title">MRB</span>
+            <mat-radio-button color="primary" value="{{choice}}" *ngFor="let choice of yesNoSelection">{{choice}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="child-input">
+          <mat-radio-group aria-label="TJCN" color="primary" class="radio-buttons" formControlName="Tjcn">
+            <span class="radio-title">TJCN</span>
+            <mat-radio-button color="primary" value="{{choice}}" *ngFor="let choice of yesNoSelection">{{choice}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="child-input">
+          <mat-radio-group aria-label="Waiver SOLAN" class="radio-buttons" formControlName="WaiverSolaN">
+            <span class="radio-title">Waiver SOLAN</span>
+            <mat-radio-button color="primary" value="{{choice}}" *ngFor="let choice of yesNoSelection">{{choice}}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="child-input">
+          <mat-form-field>
+            <mat-label>Equipment</mat-label>
+            <mat-select multiple formControlName="Equipment">
+              <mat-form-field class="wrap-filter">
+                <input  matInput focused="'true'" type="text"
+                  (keyup)="applyFilter('selectedEquipments','equipmentArr',$event.target.value)" autocomplete="off" placeholder="search">
+              </mat-form-field>
+              <mat-option [value]="equipment" *ngFor="let equipment of selectedEquipments"
+                (onSelectionChange)="change('Equipment',$event)">
+                {{equipment}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap-form-button">
+      <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">Submit</button>
+      <mat-spinner *ngIf="spinner" class="spinner"></mat-spinner>
+    </div>
+  </form>
+  <hr>
+  <div *ngIf="dataSource">
+    <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection"
+      [displayedData]="displayedData">
+      <div *ngIf="noData" class="noData">No data</div>
+    </app-table>
+  </div>
+</div>

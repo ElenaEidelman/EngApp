@@ -11,8 +11,12 @@
             <label>
               <div class="title-block">Create Menu</div>
               <section class="wrap-checkbox-section">
-                <mat-checkbox *ngFor="let menu of createMenuFrom" formControlName="{{menu.controlname}}"
-                  labelPosition="after" color="primary" (change)="toggleVisibility(menu.controlname,$event)"
+                <mat-checkbox 
+                  *ngFor="let menu of createMenuFrom" 
+                  formControlName="{{menu.controlname}}"
+                  labelPosition="after" 
+                  color="primary" 
+                  (change)="toggleVisibility(menu.controlname,$event)"
                   checked="{{menu.checked}}">
                   {{menu.label}}
                 </mat-checkbox>
