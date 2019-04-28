@@ -82,20 +82,9 @@ export class GetDataService implements OnInit {
   getMenuForSideNav(username: string):Observable<any>{
     return this.http.post(`${this.baseUrl}/users/ValidMenuForUser`,new String(username)).pipe(
       map(result => {
-
-        // let subMenu = [
-        //   {label: 'DMR', child:'/dmrlist/'},
-        //   {label: 'SWR', child:''},
-        //   {label: 'ESP', child:''},
-        // ];
-
-
         let menu: Menu[] = [];
-
         result["menu"].forEach(element => {
-          // let pathM = subMenu.find(e => e.label == element.label);
           let childOfPathM = '';
-  
           switch (element["label"]){
             case "DMR" : switch (result["showdmrby"]){
               case "Jet": 
@@ -109,6 +98,8 @@ export class GetDataService implements OnInit {
             case "SWR": childOfPathM = '';
                 break;
             case "ESP": childOfPathM = '';
+                break;
+            case "LOTINFO": childOfPathM = '';
                 break;
           }
   
@@ -180,6 +171,15 @@ export class GetDataService implements OnInit {
   }
   getDataForGlobalSearch(){
     return this.http.get(`${this.baseUrl}/users/dataForGlobalSearch`).pipe(
+      map(result => {
+        return result;
+      })
+    );
+  }
+  encryptUserData(){
+    var enc = "credentials=" + btoa(JSON.stringify("username:ink1mh,pass:12345"));
+    let headers = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
+    return this.http.post(`${this.baseUrl}/crypt/encrypt`,enc, {headers: headers}).pipe(
       map(result => {
         return result;
       })

@@ -45,6 +45,16 @@ button:focus {outline:0;}
 .mat-expansion-panel-header-description{
   flex-grow: 1 !important;
 }
+form.logInForm label.mat-form-field-label{
+  padding: 5px 0;
+}
+mat-checkbox.scrap-checkbox label,mat-checkbox.scrap-checkbox label div.mat-checkbox-inner-container{
+  margin-bottom: 0px
+}
+mat-checkbox.scrap-checkbox label span.mat-checkbox-label{
+  line-height: 15px;
+}
+
 /* .mat-expansion-panel-header{
   background: rgba(139, 176, 244,1);
 }

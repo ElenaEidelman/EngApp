@@ -4,7 +4,7 @@ import { DmrList } from 'src/app/classes/dmrList';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { GetDataService } from 'src/app/get-data.service';
 import { AlertDialogComponent } from 'src/app/dialogs/alert-dialog/alert-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatTableDataSource } from '@angular/material';
 
 
 @Component({
@@ -63,11 +63,11 @@ export class DmrsearchComponent implements OnInit {
   });
 
   selection = new SelectionModel<DmrList>(true, []);
-  displayedColumns: string[];
+  displayedColumns: string[] = [];
   dataSource;
   noData: boolean = true;
   dmrsData;
-  displayedData = "";
+  displayedData = "Global";
   spinner: boolean = false;
   username;
   ngOnInit() {
@@ -91,8 +91,8 @@ export class DmrsearchComponent implements OnInit {
   //users, equipment, defect group1, defect group2, category
   getData() {
     this.dataService.getDataForGlobalSearch().subscribe(data => {
-      this.waitingForArr = data['users'].sort((a, b) => a > b ? 1 : -1);
-      this.waitingForArr.unshift('ALL');
+      this.waitingForArr = data['users'].sort((a, b) => a.nameAndLname > b.nameAndLname ? 1 : -1);
+      this.waitingForArr.unshift({badge:'ALL', nameAndLname: 'ALL'});
 
       this.categoryArr = data['category'].sort((a, b) => a > b ? 1 : -1);
       this.categoryArr.unshift('ALL');
@@ -105,6 +105,8 @@ export class DmrsearchComponent implements OnInit {
 
       this.equipmentArr = data['equipment'].sort((a, b) => a > b ? 1 : -1);
       this.equipmentArr.unshift('ALL');
+
+
       this.selectedEquipments = this.equipmentArr;
       this.selectedDefectGroup1 = this.defectGroup1Arr;
       this.selectedDefectGroup2 = this.defectGroup2Arr;
@@ -114,18 +116,22 @@ export class DmrsearchComponent implements OnInit {
     });
   }
 
-  applyFilter(selected,dataArr,filterValue: string){
-
-    let result = this.select(dataArr,filterValue);
+  applyFilter(selected,dataArr,filterValue: string, objProperty?: string){
+    let result = this.select(dataArr,filterValue,objProperty);
     this[selected] = result;
   }
 
-  select(control: string, query: string):string[]{
+  select(control: string, query: string, objProperty?: string):string[]{
     let result: string[] = [];
-
     for(let a of this[control]){
-      if(a.toLowerCase().indexOf(query) > -1){
-        result.push(a)
+      if(typeof a == 'object'){
+        if(a[objProperty].toLowerCase().indexOf(query) > -1){
+          result.push(a)
+        }
+      }else{
+        if(a.toLowerCase().indexOf(query) > -1){
+          result.push(a)
+        }
       }
     }
     return result
@@ -136,6 +142,7 @@ export class DmrsearchComponent implements OnInit {
     //if selected ALL
     if (event['isUserInput'] && event['source']['_selected'] && event['source'].value == 'ALL') {
       this.dmrSearchForm.get(controler).patchValue(['']);
+
     }
 
     //if selected something else
@@ -169,12 +176,32 @@ export class DmrsearchComponent implements OnInit {
     }
 
     if(valid){  
+      this.spinner = true;
       let dataToDb = {
         dataBy: 'Global',
         globalSearch: this.dmrSearchForm.value
       }
       this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(result => {
-        debugger
+          if(Object.keys(result).length == 0){
+            this.dataSource = [];
+            this.displayedColumns = [];
+            this.noData = true;
+          }
+          else{
+            this.noData = false;
+            this.dmrsData = result;
+            let obj = Object.create(DmrList);
+            obj = result;
+            this.dataSource = new MatTableDataSource<DmrList>(obj);
+            // to prevent duplicat columns
+            if(this.displayedColumns.indexOf('select') == -1){
+              this.displayedColumns.push('select');
+              Object.keys(obj[0]).forEach((item)=>{
+                this.displayedColumns.push(item);
+              });
+            }
+          }
+          this.spinner = false;
       });
       console.log(this.dmrSearchForm.value);
     }

@@ -1,6 +1,14 @@
 .wrap-component{
-    height: 100vh;
-
+        height: -webkit-fill-available;
+        /* background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);  */
+        /* background: linear-gradient(110deg, #330867 60%, #30cfd0 60%); */
+        background: url('../../assets/img/bg.jpg') bottom;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-color: #FEFEFE;
+}
+.wrap-login{
+    
 }
 .wrap-form{
     display: flex;
@@ -11,10 +19,12 @@
 }
 
 .imgHeaderLogIn{
-    background: url('../../assets/img/tower.jpg') right;
-    width: 98%;
+    background: url('../../assets/img/tower.jpg') center;
+    width: 100%;
     height: 113px;
     background-repeat: no-repeat;
+    margin: 35px auto;
+
 }
 .imgHeaderLogIn > h1 {
     margin: 10px;
@@ -28,8 +38,8 @@
     right: 28%;
 }
 .wrap-button-login > button{
-    background: #555555;
-    color: #fff;
+    background: lightgray;
+    color: #404040;
 }
 .sub-title{
     width: 100%;
@@ -42,6 +52,11 @@
     box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
     border-radius: 10px;
     position: relative;
-    background: rgba(0,0,0,0.1);
+    background: rgba(34,102,153,0.9);
+    color: #fff;
+}
+
+input, mat-icon{
+    color:#404040;
 }
 

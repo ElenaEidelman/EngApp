@@ -18,3 +18,26 @@
 .wrap-record-component{
     padding: 10px;
 }
+.wrap-date{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 3em 3em 0 3em;
+}
+.wrap-form-button{
+    width:100%;
+    position: relative;
+}
+.wrap-form-button button{
+    margin: 10px auto;
+    display: block;
+}
+form{
+    border: 1px solid #404040;
+}
+.wrap-form{
+    background: beige;
+}
+.mat-flat-button{
+    background: rgb(15,79,128);
+    color:#fff;
+}

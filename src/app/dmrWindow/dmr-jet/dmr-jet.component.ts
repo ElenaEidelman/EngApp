@@ -19,7 +19,7 @@ export class DmrJetComponent implements OnInit {
   noData: boolean = false;
   displayedData = "Jet";
   
-  dmrsData;
+  // dmrsData;
  
 
   ngOnInit() {
@@ -43,18 +43,14 @@ export class DmrJetComponent implements OnInit {
               departments.push(res.Name);
             }
           });
-  
-  
           let dataToDb = {
             dataBy: 'Jet',
             departments: departments,
             tools:tools
           }
-      
           this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
             result => {
               if(Object.keys(result).length > 0){
-                this.dmrsData = result;
                 let obj = Object.create(DmrList);
                 obj = result;
                 this.dataSource = new MatTableDataSource<DmrList>(obj);

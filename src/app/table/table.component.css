@@ -42,3 +42,11 @@ th{
   display: flex;
   justify-content: space-between;
 }
+.scrap-checkbox{
+  margin: auto;
+  flex-grow: 1;
+}
+
+.filter-wrap{
+  margin-right: 3em;
+}

@@ -30,14 +30,13 @@ export class ArchionComponent implements OnInit {
     let username = localStorage.getItem('user');
     let sortingTable = [];
     let dataToDb = {
-      table: 'Jet\',\'Department\',\'WaitingFor\',\'Record',
+      table: 'Jet\',\'Department\',\'WaitingFor\',\'ByMonth\',\'Global',
       username: username
     }
     this.dataService.getArchionList(dataToDb).subscribe(
       result => {
-        //debugger
-        //create arr with tables for tab
         if (Object.keys(result).length > 0) {
+          //create arr with tables for tab
           let tabs = new Set();
           for (var table in result) {
             tabs.add(result[table]['table']);
@@ -55,7 +54,6 @@ export class ArchionComponent implements OnInit {
             dmrNums = [];
           });
 
-
           let dataToDb = {
             dataBy: 'Number',
             archionList: result
@@ -68,17 +66,18 @@ export class ArchionComponent implements OnInit {
                 Object.keys(dmrsList[0]).forEach((item) => {
                   this.displayedColumns.push(item);
                 });
-
                 //create sortingTable
                 sortingTable.forEach((element, i) => {
+                  let selectionArr = [];
                   element['dmrNums'].forEach((dmrN, index) => {
-
+                    
                     //find same dmr number in dmrsList and replace this number with dmr element
                     for (let element in dmrsList) {
                       if (dmrsList[element]['number'] == dmrN) {
-                        sortingTable[i]['dmrNums'][index] = dmrsList[element];
+                        selectionArr.push(dmrsList[element]);
                       }
                     }
+                    sortingTable[i]['dmrNums'] = selectionArr;
                   });
                 });
                 this.tabsArr = sortingTable;
@@ -98,5 +97,11 @@ export class ArchionComponent implements OnInit {
         }
       }
     )
+  }
+
+  //check master check if all selected
+  tabClicked(dmrCat){
+    let arrToSelection = this.tabsArr.find(dmrListsArr => dmrListsArr.table == dmrCat['tab']['textLabel']).dmrNums.filteredData;
+    this.selection  = new SelectionModel<DmrList>(true, arrToSelection);
   }
 }

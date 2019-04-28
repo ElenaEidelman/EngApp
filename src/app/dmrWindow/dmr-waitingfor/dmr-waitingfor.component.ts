@@ -22,7 +22,7 @@ export class DmrWaitingforComponent implements OnInit {
   noData: boolean = false;
   displayedData = "WaitingFor";
 
-  dmrsData;
+  // dmrsData;
 
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class DmrWaitingforComponent implements OnInit {
       result => {
         debugger
         if (Object.keys(result).length > 0) {
-          this.dmrsData = result;
+          // this.dmrsData = result;
           let obj = Object.create(DmrList);
           obj = result;
           //debugger

@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
-import { element } from '@angular/core/src/render3';
+import { element, elementClassProp } from '@angular/core/src/render3';
 import { GetDataService } from '../get-data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
 import * as XLSX from 'xlsx';
+import { filter } from 'rxjs/operators';
+import { DmrList } from '../classes/dmrList';
 
 
 @Component({
@@ -30,12 +32,18 @@ export class TableComponent implements OnInit {
   addList = new Set();
   setRemove = new Set();
   disabledList = new Set();
+  linkEncrypt = "test";
+  scrapChecked = false;
+  dataSourceSelectedByScrap;
+
 
 
   ngOnInit() {
+    this.linkEncrypt = localStorage.getItem('Encrypt');
     let username = localStorage.getItem('user');
     this.archionList(this.displayedData, username);
-    this.buttonName = this.disableSelected != false ? 'Save to Archion': 'Delete from Archion';
+    this.buttonName = this.disableSelected != false ? 'Save to Archion' : 'Delete from Archion';
+    this.dataSourceSelectedByScrap = Object.create(this.dataSource);
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -47,17 +55,23 @@ export class TableComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    // this.listToArchion = [];
+    let dl = Array.from(this.disabledList);
     this.addList.forEach((el) => {
-      this.setRemove.add(el);
+      //prevent removing from archion list if selected/deselected all
+      if(this.disableSelected == true){
+        if(dl.findIndex(dmrN => dmrN == el) == -1){
+          this.setRemove.add(el);
+         }
+      }
+      else{
+        this.setRemove.add(el);
+      }
     });
     this.addList.clear();
-
     this.isAllSelected() ?
-      this.selection.clear() :
+        this.selection.clear():
       this.dataSource.data.forEach(row => {
         this.selection.select(row);
-        // this.listToArchion.push(row);
         this.addList.add(row.number);
       });
 
@@ -73,6 +87,7 @@ export class TableComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   toogleRow(row: any, event) {
+    console.log(this.selection);
     if (event.checked) {
       this.addList.add(row.number);
       if (this.setRemove.has(row.number)) {
@@ -97,9 +112,11 @@ export class TableComponent implements OnInit {
         result => {
           if (result) {
             this.openDialog('Success', 'Archion list was changed');
-            tempSetToRemove.forEach(id => {
-              document.getElementById(id).style.display = "none";
-            });
+            if(this.disableSelected == false){
+              tempSetToRemove.forEach(id => {
+                document.getElementById(id).style.display = "none";
+              });
+            }
             this.listToArchion = [];
           }
           else {
@@ -126,13 +143,17 @@ export class TableComponent implements OnInit {
       table: table,
       username: username
     }
-
     this.dataService.getArchionList(dataToDb).subscribe(
       result => {
+        let selectionArray = [];
         for (let num of Object.values(result)) {
+          selectionArray.push(this.dataSource.data.find(dmrData => dmrData.number == num.listNumber));
           this.addList.add(num.listNumber);
           this.disabledList.add(num.listNumber);
         }
+        debugger
+        let d = this.dataSource.data;
+        this.selection = new SelectionModel<DmrList>(true, selectionArray);
       }
     );
 
@@ -146,6 +167,7 @@ export class TableComponent implements OnInit {
     return listNumber != undefined ? listNumber : 0;
   }
 
+  //check if dmr in archion list
   checkedFromArchion(number: number) {
     if (this.disableSelected != false) {
       let disabled = false
@@ -157,18 +179,34 @@ export class TableComponent implements OnInit {
   }
 
 
-ExportTOExcel()
-{
-  const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
-  const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-  
-  /* save to file */
-  let date = new Date();
-  let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-  let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
-  let fileName = day + "-" + month + "-" + date.getFullYear() + "__" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds() + "_" + this.displayedData 
-  XLSX.writeFile(wb, fileName + '.xlsx');
-  
-}
+  ExportTOExcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    let date = new Date();
+    let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1);
+    let fileName = day + "-" + month + "-" + date.getFullYear() + "__" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds() + "_" + this.displayedData
+    XLSX.writeFile(wb, fileName + '.xlsx');
+
+  }
+  scrapSelected(event) {
+    let filtered = [];
+    if(event.checked){
+
+      this.dataSource.data.forEach(element => {
+        if(+element.scrap > 0){
+          filtered.push(element);
+        }
+      });
+      let obj = Object.create(DmrList);
+      obj = filtered;
+      this.dataSource = new MatTableDataSource<DmrList>(obj);
+    }
+    else{
+      this.dataSource = this.dataSourceSelectedByScrap;
+    }
+  }
 }

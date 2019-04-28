@@ -48,12 +48,12 @@ export class EditprofileComponent implements OnInit, OnDestroy {
   createForm() {
     this.dataService.getMenuForSideNav(this.username).subscribe((result: Menu[]) => {
       this.createMenuFrom = result["menu"];
-
       this.editForm = this.fb.group({
         menu: this.fb.group(this.createGroupCheckbox(result["menu"]).value),
         showDmrBy: [''],
         showSwrBy: [''],
         showEspBy: [''],
+        lotinfo:[''],
         Jet: this.fb.group(this.createGroupCheckbox(this.jets).value),
         Department: this.fb.group(this.createGroupCheckbox(this.departments).value),
       });
@@ -144,12 +144,12 @@ export class EditprofileComponent implements OnInit, OnDestroy {
         departmentFilterObj.push({ name: item, ischecked: true });
       }
     });
-
     let dataToDb = {
       username: userDetails['username'],
       dmr: this.editForm.value['menu']['dmr'],
       swr: this.editForm.value['menu']['swr'],
       esp: this.editForm.value['menu']['esp'],
+      lotinfo: this.editForm.value['menu']['lotinfo'],
       showdmrby: this.editForm.get('showDmrBy').value,
       departmentfilter: JSON.stringify(departmentFilterObj),
       jetfilter: JSON.stringify(jetFilterObj)

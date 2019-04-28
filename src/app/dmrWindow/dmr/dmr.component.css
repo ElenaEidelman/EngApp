@@ -3,7 +3,7 @@
     justify-content: space-around;
 }
 .wrap-buttons div > button{
-    background: cornflowerblue;
+    background: rgb(98,150,190);
 }
 .wrap-buttons div > button  a{
     color: #fff;

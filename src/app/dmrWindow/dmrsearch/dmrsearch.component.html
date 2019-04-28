@@ -38,10 +38,11 @@
             <mat-label>Location</mat-label>
             <section>
               <mat-select multiple formControlName="Location">
-                  <mat-form-field class="wrap-filter">
-                      <input matInput focused="'true'" type="text"
-                        (keyup)="applyFilter('selectedLocations','locationArr',$event.target.value)" autocomplete="off" placeholder="search">
-                    </mat-form-field>
+                <mat-form-field class="wrap-filter">
+                  <input matInput focused="'true'" type="text"
+                    (keyup)="applyFilter('selectedLocations','locationArr',$event.target.value)" autocomplete="off"
+                    placeholder="search">
+                </mat-form-field>
                 <mat-option [value]="location" *ngFor="let location of selectedLocations"
                   (onSelectionChange)="change('Location',$event)">{{location}}</mat-option>
               </mat-select>
@@ -80,7 +81,8 @@
             <mat-select formControlName="Defect1">
               <mat-form-field class="wrap-filter">
                 <input matInput focused="'true'" type="text"
-                  (keyup)="applyFilter('selectedDefectGroup1','defectGroup1Arr',$event.target.value)" autocomplete="off" placeholder="search">
+                  (keyup)="applyFilter('selectedDefectGroup1','defectGroup1Arr',$event.target.value)" autocomplete="off"
+                  placeholder="search">
               </mat-form-field>
               <mat-option [value]="def1" *ngFor="let def1 of selectedDefectGroup1">{{def1}}</mat-option>
             </mat-select>
@@ -92,7 +94,8 @@
             <mat-select formControlName="Defect2">
               <mat-form-field class="wrap-filter">
                 <input matInput focused="'true'" type="text"
-                  (keyup)="applyFilter('selectedDefectGroup2','defectGroup2Arr',$event.target.value)" autocomplete="off" placeholder="search">
+                  (keyup)="applyFilter('selectedDefectGroup2','defectGroup2Arr',$event.target.value)" autocomplete="off"
+                  placeholder="search">
               </mat-form-field>
               <mat-option [value]="def2" *ngFor="let def2 of selectedDefectGroup2">{{def2}}</mat-option>
             </mat-select>
@@ -118,11 +121,13 @@
           <mat-form-field>
             <mat-label>Title</mat-label>
             <mat-select multiple formControlName="Title">
-                <mat-form-field class="wrap-filter">
-                    <input matInput focused="'true'" type="text"
-                      (keyup)="applyFilter('selectedTitels','titlesArr',$event.target.value)" autocomplete="off" placeholder="search">
-                  </mat-form-field>
-              <mat-option [value]="title" *ngFor="let title of selectedTitels" (onSelectionChange)="change('Title',$event)">{{title}}</mat-option>
+              <mat-form-field class="wrap-filter">
+                <input matInput focused="'true'" type="text"
+                  (keyup)="applyFilter('selectedTitels','titlesArr',$event.target.value)" autocomplete="off"
+                  placeholder="search">
+              </mat-form-field>
+              <mat-option [value]="title" *ngFor="let title of selectedTitels"
+                (onSelectionChange)="change('Title',$event)">{{title}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -130,11 +135,13 @@
           <mat-form-field>
             <mat-label>Waiting For</mat-label>
             <mat-select multiple formControlName="WaitingFor">
-                <mat-form-field class="wrap-filter">
-                    <input matInput focused="'true'" type="text"
-                      (keyup)="applyFilter('selectedWaitingFor','waitingForArr',$event.target.value)" autocomplete="off" placeholder="search">
-                  </mat-form-field>
-              <mat-option [value]="user" *ngFor="let user of selectedWaitingFor"  (onSelectionChange)="change('WaitingFor',$event)">{{user}}</mat-option>
+              <mat-form-field class="wrap-filter">
+                <input matInput focused="'true'" type="text"
+                  (keyup)="applyFilter('selectedWaitingFor','waitingForArr',$event.target.value,'nameAndLname')" autocomplete="off"
+                  placeholder="search">
+              </mat-form-field>
+              <mat-option [value]="user.badge" *ngFor="let user of selectedWaitingFor"
+                (onSelectionChange)="change('WaitingFor',$event)">{{user.nameAndLname}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -171,8 +178,9 @@
             <mat-label>Equipment</mat-label>
             <mat-select multiple formControlName="Equipment">
               <mat-form-field class="wrap-filter">
-                <input  matInput focused="'true'" type="text"
-                  (keyup)="applyFilter('selectedEquipments','equipmentArr',$event.target.value)" autocomplete="off" placeholder="search">
+                <input matInput focused="'true'" type="text"
+                  (keyup)="applyFilter('selectedEquipments','equipmentArr',$event.target.value)" autocomplete="off"
+                  placeholder="search">
               </mat-form-field>
               <mat-option [value]="equipment" *ngFor="let equipment of selectedEquipments"
                 (onSelectionChange)="change('Equipment',$event)">
@@ -185,7 +193,7 @@
     </div>
 
     <div class="wrap-form-button">
-      <button mat-flat-button color="primary" type="submit" (click)="onSubmit()">Submit</button>
+      <button mat-flat-button type="submit" (click)="onSubmit()">Submit</button>
       <mat-spinner *ngIf="spinner" class="spinner"></mat-spinner>
     </div>
   </form>

@@ -1,7 +1,30 @@
 <div class="wrap-record-component">
   <div class="title">
-    <h2>Dmr's by Record</h2>
-    <mat-spinner *ngIf="!dataSource" class="spinner"></mat-spinner>
+    <h2>Dmr's by month</h2>
+    <mat-spinner *ngIf="!dataSource || spinner" class="spinner"></mat-spinner>
+  </div>
+  <div class="wrap-form">
+    <form [formGroup]="dateForm">
+      <div class="wrap-date">
+          <div>
+              <mat-form-field>
+                  <input matInput [matDatepicker]="pickerFrom" placeholder="Date From" formControlName="DateFrom">
+                  <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerFrom></mat-datepicker>
+                </mat-form-field>
+          </div>
+          <div>
+              <mat-form-field>
+                  <input matInput [matDatepicker]="pickerTo" placeholder="Date To" formControlName="DateTo">
+                  <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerTo></mat-datepicker>
+                </mat-form-field>
+          </div>
+      </div>
+      <div class="wrap-form-button">
+          <button mat-flat-button type="submit" (click)="getDmrs()">New Search</button>
+        </div>
+    </form>
   </div>
   <div *ngIf="dataSource">
     <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection"

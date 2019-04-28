@@ -17,7 +17,7 @@ export class DmrDepartmentComponent implements OnInit {
   displayedColumns: string[] = [];
   dataSource;
   noData: boolean = false;
-  dmrsData;
+  // dmrsData;
   displayedData = "Department";
 
   ngOnInit() {
@@ -43,8 +43,7 @@ export class DmrDepartmentComponent implements OnInit {
           this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
             result => {
               if(Object.keys(result).length > 0){
-
-                this.dmrsData = result;
+                // this.dmrsData = result;
                 let obj = Object.create(DmrList);
                 obj = result;
                 //debugger

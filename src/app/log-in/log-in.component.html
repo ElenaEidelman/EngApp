@@ -1,15 +1,13 @@
-
 <div class="wrap-component">
-    <div class="imgHeaderLogIn">
-        <h1>D  M  R  -  F A B II</h1>
-    </div>
-    <div class="container ">
-      <div class="log-in">
-        <div class="sub-title">
-          <h2>Discrepancy Material Reporting System</h2>
-          <h3>FOR PROMIS USERS</h3>
+  <div class="imgHeaderLogIn"></div>
+  <div class="container wrap-login">
+    <div class="log-in">
+      <div class="sub-title">
+        <h5>Discrepancy Material Reporting System</h5>
+        <h5>FOR PROMIS USERS</h5>
       </div>
       <div class="wrap-form">
+        <h2>Log In</h2>
         <form [formGroup]="loginForm" class="logInForm" (ngSubmit)="onSubmit()">
           <p>
             <mat-form-field appearance="outline">
@@ -20,7 +18,7 @@
           </p>
           <p>
             <mat-form-field appearance="outline">
-                <mat-label>Password</mat-label>
+              <mat-label>Password</mat-label>
               <input type="password" matInput placeholder="Password" formControlName="password">
               <mat-icon matSuffix>mode_edit</mat-icon>
             </mat-form-field>
@@ -28,12 +26,11 @@
           <p class="wrap-button-login">
             <button mat-flat-button type="submit">Login</button>
             <span *ngIf="spinner">
-                <mat-spinner></mat-spinner>
+              <mat-spinner></mat-spinner>
             </span>
           </p>
         </form>
       </div>
-      </div>
     </div>
+  </div>
 </div>
-

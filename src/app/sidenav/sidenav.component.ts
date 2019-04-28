@@ -18,6 +18,7 @@ export class SidenavComponent implements OnInit,OnDestroy {
     {label: 'DMR', child:'/dmrlist/'},
     {label: 'SWR', child:''},
     {label: 'ESP', child:''},
+    {label: 'LOTINFO', child:''}
   ];
 
 
@@ -49,6 +50,8 @@ export class SidenavComponent implements OnInit,OnDestroy {
               break;
           case "ESP": childOfPathM = '';
               break;
+          case "LOTINFO": childOfPathM = '';
+              break;
         }
 
         menu.push(new Menu (element.label,element.ischecked,element.controlname,pathM.child + childOfPathM));
@@ -78,6 +81,8 @@ export class SidenavComponent implements OnInit,OnDestroy {
           case "SWR": childOfPathM = '';
               break;
           case "ESP": childOfPathM = '';
+              break;
+          case "LOTINFO": childOfPathM = '';
               break;
         }
         menu.push(new Menu(item["label"],item["ischecked"],item["controlname"],pathM.child + "/" + childOfPathM));

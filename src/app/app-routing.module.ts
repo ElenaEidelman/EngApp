@@ -34,7 +34,7 @@ const routes: Routes = [
             },
             {path:'newdmr',component:NewdmrComponent},
             {path:'dmrsearch',component:DmrsearchComponent},
-            {path: 'record', component:RecordComponent},
+            {path: 'byMonth', component:RecordComponent},
             {path: 'archion', component:ArchionComponent}
 
                 ]
