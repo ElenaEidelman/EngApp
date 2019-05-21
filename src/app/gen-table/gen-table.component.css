@@ -1,0 +1,46 @@
+table {
+    width: 100%;
+  }
+ tr > th:nth-child(odd){
+  background: lightgray;
+}
+ tr > th:nth-child(even){
+  background: lightblue;
+}
+tr > td:nth-child(even){
+  background: rgba(218, 240, 248,1);
+}
+tr > td:nth-child(odd){
+  background:rgba(230, 230, 230,1);
+}
+tr td{
+  text-align: center;
+}
+tr th{
+  border-bottom: 2px solid gray;
+  text-align: center;
+  padding: 2px;
+}
+th{
+  text-align: center;
+}
+.redColor{
+  background: red !important;
+  color:#fff;
+}
+.wrap-button button{
+  color:#fff;
+  margin:10px;
+}
+
+.wrap-button button.excel_button{
+  background: #673ab7;
+}
+.wrap-filter-button{
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-wrap{
+  margin-right: 3em;
+}

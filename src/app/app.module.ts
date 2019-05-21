@@ -15,7 +15,6 @@ import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.compon
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileGuardService } from './profile-guard.service';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { ContentComponent } from './content/content.component';
 import { DmrComponent } from './dmrWindow/dmr/dmr.component';
 import { SwrComponent } from './windowSwr/swr/swr.component';
 import { DmrlistComponent } from './dmrWindow/dmrlist/dmrlist.component';
@@ -31,6 +30,15 @@ import { ToArrPipe } from './pipes/to-arr.pipe';
 import { TableComponent } from './table/table.component';
 import { ArchionComponent } from './dmrWindow/archion/archion.component';
 
+import { WindowEspComponent } from './window-esp/window-esp.component';
+import { WindowLotInfoComponent } from './window-lot-info/info/window-lot-info.component';
+import { GenTableComponent } from './gen-table/gen-table.component';
+import { RemoveSpacePipe } from './remove-space.pipe';
+import { AddSpacePipe } from './add-space.pipe';
+import { ScrollToTopDirective } from './scroll-to-top.directive';
+
+
+
 
 
 
@@ -41,7 +49,6 @@ import { ArchionComponent } from './dmrWindow/archion/archion.component';
     AlertDialogComponent,
     ProfileComponent,
     SidenavComponent,
-    ContentComponent,
     DmrComponent,
     SwrComponent,
     DmrlistComponent,
@@ -56,6 +63,12 @@ import { ArchionComponent } from './dmrWindow/archion/archion.component';
     ToArrPipe,
     TableComponent,
     ArchionComponent,
+    WindowLotInfoComponent,
+    WindowEspComponent,
+    GenTableComponent,
+    RemoveSpacePipe,
+    AddSpacePipe,
+    ScrollToTopDirective,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +78,10 @@ import { ArchionComponent } from './dmrWindow/archion/archion.component';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    // ScrollingModule,
+    // ScrollDispatchModule,
+    // ScrollEventModule
   ],
   entryComponents:[
     AlertDialogComponent

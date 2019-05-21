@@ -26,10 +26,6 @@ export class ProfileGuardService implements CanActivate{
       console.log(error.message);
     }
       if(this.activated && localStorage.getItem("userExist")=="true"){
-        //crypt code
-        this.dataService.encryptUserData().subscribe(result => {
-          localStorage.setItem("Encrypt",result['key']);
-        });
         return true;
       }
       else{

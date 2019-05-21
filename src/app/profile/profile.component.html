@@ -26,23 +26,42 @@
         </div>
       </mat-drawer>
 
-      <button type="button" mat-icon-button (click)="drawer.toggle()">
+      <button type="button" mat-icon-button class="open-close-side-button" (click)="drawer.toggle()">
           <mat-icon *ngIf="drawer.opened">arrow_back</mat-icon>
           <mat-icon *ngIf="!drawer.opened">arrow_forward</mat-icon>
       </button>
       <div class="example-sidenav-content">
 
-        <div class="content">
+        <div class="content" style="overflow:scroll; height: calc(100vh - 100px);" (scroll)="onWindowScroll($event)">
           <router-outlet></router-outlet>
+          <span *ngIf="buttonToUp" class="buttonToUp" (click)="scrollToTop()">
+              <mat-icon>arrow_upward</mat-icon>
+          </span>
         </div>
       </div>
 
     </mat-drawer-container>
-    <!-- <div class="side-bar">
-        <app-sidenav [userName]="username"></app-sidenav>
-      </div>
-      <div class="content">
-        <router-outlet></router-outlet>
-      </div> -->
   </div>
 </div>
+<!-- 
+<div style="width:100px; height:100px; overflow:scroll" (scroll)="onWindowScroll($event)">
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+  <div>BLA</div>
+
+</div> -->

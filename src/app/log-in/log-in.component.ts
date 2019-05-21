@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener} from '@angular/core';
 import { GetDataService } from '../get-data.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-log-in',
@@ -23,22 +24,20 @@ export class LogInComponent implements OnInit {
   });
   spinner = false;
   userExist: boolean = localStorage.getItem('userExist') ? true : false;
-
-
+  
   ngOnInit() {
   }
-
   onSubmit(){
     if(this.loginForm.valid){
       this.spinner = true;
       let userName = this.loginForm.get('name').value;
       let password = this.loginForm.get('password').value;
       this.dataService.checkUser(userName, password).subscribe(result => {
-       // debugger
         this.spinner = false;
         if(result){
           //debugger
           localStorage.setItem("userExist","true");
+          localStorage.setItem("userPass",JSON.stringify({username: userName, password: password}));
           this.route.navigate(['profile/' + userName]);
         }else{
           this.openDialog('Error','User not exist');

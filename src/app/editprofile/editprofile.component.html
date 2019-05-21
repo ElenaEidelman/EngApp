@@ -28,6 +28,7 @@
     </div>
 
     <div class="wrap-form">
+      
       <!--Show/Hidden blocks ---start-->
 
       <!--Dmr-->
@@ -183,6 +184,23 @@
           </mat-expansion-panel>
         </mat-accordion>
       </div>
+
+      <!--Lot Info-->
+      <div class="wrap-hidden-block">
+          <mat-accordion *ngIf="lotinfo">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title></mat-panel-title>
+                <mat-panel-description>Show Lot Info By: </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="wrap-form-block esp-block">
+                <label>
+                  <div class="title-block">Show Lot Info By: </div>
+                </label>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
 
       <!--Show/Hidden blocks ----end-->
 

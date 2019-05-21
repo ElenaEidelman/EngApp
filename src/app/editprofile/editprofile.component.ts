@@ -146,6 +146,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     });
     let dataToDb = {
       username: userDetails['username'],
+      badge: userDetails['badge'],
       dmr: this.editForm.value['menu']['dmr'],
       swr: this.editForm.value['menu']['swr'],
       esp: this.editForm.value['menu']['esp'],
@@ -156,6 +157,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     }
     this.dataService.saveUserProfileDetails(dataToDb).subscribe(
       result => {
+        debugger
         if (result) {
           this.openDialog('Success', 'Menu was changed');
         }

@@ -32,7 +32,7 @@
     display: block;
 }
 form{
-    border: 1px solid #404040;
+    border: 1px solid lightgrey;
 }
 .wrap-form{
     background: beige;

@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-
-html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .logInForm .mat-form-field-appearance-outline .mat-form-field-outline{
     background: #fff;
@@ -16,7 +14,7 @@ ul li a, a:hover {
   color:#fff;
 }
 .wrap-component{
-  padding: 10px;
+  padding: 30px 10px 10px 10px;
 }
 .wrap-sidenav ul{
   padding: 0;
@@ -55,6 +53,100 @@ mat-checkbox.scrap-checkbox label span.mat-checkbox-label{
   line-height: 15px;
 }
 
+
+
+
+table{
+  width: 100%;
+ }
+ 
+ .mat-column-username {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 28% !important;
+   width: 28% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ 
+ .mat-column-emailid {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 25% !important;
+   width: 25% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ 
+ .mat-column-contactno {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 17% !important;
+   width: 17% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ 
+ .mat-column-userimage {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 8% !important;
+   width: 8% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ 
+ .mat-column-userActivity {
+   word-wrap: break-word !important;
+   white-space: unset !important;
+   flex: 0 0 10% !important;
+   width: 10% !important;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+ 
+   word-break: break-word;
+ 
+   -ms-hyphens: auto;
+   -moz-hyphens: auto;
+   -webkit-hyphens: auto;
+   hyphens: auto;
+ }
+ .mat-drawer-content{
+   overflow: inherit;
+ }
+/* .mat-tab-body-wrapper {
+  height: -webkit-fill-available;
+} */
+
+
 /* .mat-expansion-panel-header{
   background: rgba(139, 176, 244,1);
 }
@@ -62,3 +154,5 @@ mat-checkbox.scrap-checkbox label span.mat-checkbox-label{
   color:#fff;
   font-size: 20px;
 } */
+
+

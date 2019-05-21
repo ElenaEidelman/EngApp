@@ -1,5 +1,5 @@
 <div class="wrap-sidenav">
-  <ul>
+  <ul class="sideNavUl">
       <ng-container *ngFor="let sideNav of menuForSideNav; let i = index">
         <li *ngIf="sideNav.ischecked">
           <a routerLink="{{sideNav.controlname}}{{sideNav.path}}">{{sideNav.label}}</a>

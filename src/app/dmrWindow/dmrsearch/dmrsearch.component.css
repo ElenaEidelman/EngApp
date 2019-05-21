@@ -60,3 +60,19 @@ mat-radio-group{
     color:#fff;
   }
   
+
+/**/
+
+  .viewport-section {
+    height: 200px;
+    width: 90%;
+    border: 1px solid rgb(169,169,169)
+  }
+  
+  .item-section {
+    padding: 15px;
+    background: rgb(192,192,192);
+    margin-bottom: 1px;
+    text-align: center;
+    font-size: 15px;
+  }

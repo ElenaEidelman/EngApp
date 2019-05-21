@@ -62,7 +62,6 @@ export class SidenavComponent implements OnInit,OnDestroy {
   //if was changed
   getMenuForSideNavByUsername(){
     this.unsub = this.dataService.menuData.subscribe((result: Menu[]) => {
-      debugger
       let menu: Menu[] = [];
       result.forEach((item)=>{
         let pathM = this.subMenu.find(e => e.label == item["label"]);

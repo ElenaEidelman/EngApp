@@ -1,12 +1,11 @@
 import { Injectable,EventEmitter } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
-//import 'rxjs/Rx';
 import { Observable, from, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './classes/users';
 import { Menu } from './classes/menu';
-import { OnInit,AfterViewInit } from '@angular/core';
-import { stringify } from '@angular/compiler/src/util';
+import { OnInit} from '@angular/core';
+
 
 
 
@@ -20,7 +19,9 @@ export class GetDataService implements OnInit {
   }
   baseUrl = 'http://localhost:63778/api';
   menuData = new EventEmitter<Menu[]>();
+  lotInfoData = new EventEmitter();
   menu:Menu[] = [];
+  lotInfo;
 
  ngOnInit(){
 
@@ -73,7 +74,6 @@ export class GetDataService implements OnInit {
   getUserDetails(username:string){
     return this.http.post(`${this.baseUrl}/users/UserDetails`, new String(username)).pipe(
       map(result => {
-        //debugger
         return result;
       })
     );
@@ -115,7 +115,6 @@ export class GetDataService implements OnInit {
 
 
   getDmrsList(data:any){
-    //debugger
     return this.http.post(`${this.baseUrl}/dmrs/DmrList`,new String(data)).pipe(
       map(result => {
         return result;
@@ -176,13 +175,31 @@ export class GetDataService implements OnInit {
       })
     );
   }
-  encryptUserData(){
-    var enc = "credentials=" + btoa(JSON.stringify("username:ink1mh,pass:12345"));
-    let headers = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded")
+  encryptUserData(username,password){
+    //var enc = "credentials=" + btoa(JSON.stringify("username:" + userNPass.username + ",pass:" + userNPass.password));
+    var enc = 'credentials=username:' + username + ',pass:' + password;
+    let headers = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded");
     return this.http.post(`${this.baseUrl}/crypt/encrypt`,enc, {headers: headers}).pipe(
       map(result => {
         return result;
       })
     );
   }
+
+  getDataLotInfo(lotNumber: string){
+    //return this.http.post(`${this.baseUrl}/lotInfo/LotInfoData`,new String(lotNumber)).toPromise();
+    this.lotInfoData.emit({});
+    return this.http.post(`${this.baseUrl}/lotInfo/LotInfoData`,new String(lotNumber)).pipe(
+      map(result => {
+        this.lotInfoData.emit({lotNumber: lotNumber, lotData: result});
+        this.lotInfo = {lotNumber: lotNumber, lotData: result};
+        return result;
+      })
+    );
+  }
+  emptyLotInfo(){
+    this.lotInfoData.emit({});
+    this.lotInfo = [];
+  }
+
 }

@@ -1,0 +1,55 @@
+<div class="wrap-component">
+    <div class="header">
+      <div class="wrap-content">
+        <form>
+          <mat-form-field>
+            <input matInput placeholder="Lot number " [formControl]="lotNumber">
+            <mat-hint *ngIf="noLotNumber" class="errorHint">Please insert Lot Number</mat-hint>
+          </mat-form-field>
+          <div class="wrap-form-button">
+            <button mat-flat-button type="submit" (click)="onSubmit()">Submit</button>
+            <mat-spinner *ngIf="spinner" class="spinner"></mat-spinner>
+          </div>
+        </form>
+      </div>
+      <div class="wrap-buttons">
+        <div>
+          <button mat-flat-button (click)="lotInfo()">Lot info</button>
+        </div>
+        <div>
+          <button mat-flat-button (click)="getData('LotHistory')">Lot history</button>
+        </div>
+        <div>
+          <button mat-flat-button (click)="navigateAnchor('LotDmr')">Lot DMR's</button>
+        </div>
+        <div>
+          <button mat-flat-button (click)="navigateAnchor('LotSwr')">Lot SWR</button>
+        </div>
+        <div>
+          <button mat-flat-button (click)="getData('LotDcop')">Last DCOP</button>
+        </div>
+        <div>
+          <button mat-flat-button (click)="getData('LotProgress')">Lot progress</button>
+        </div>
+        <div>
+          <button mat-flat-button (click)="navigateAnchor('LotFutureHold')">Future hold</button>
+        </div>
+        <div>
+            <button mat-flat-button (click)="navigateAnchor('StopNotice')">Stop Notice</button>
+          </div>
+  
+      </div>
+    </div>
+    <div class="content">
+      <!-- <router-outlet></router-outlet> -->
+      <mat-spinner *ngIf="spinnerContent" class="spinnerContent"></mat-spinner>
+      <div *ngFor="let fromArr of fromTableArr" class="wrap_table" id="{{fromArr.tableName}}" >
+        <div class="title">
+            <h2>{{fromArr.tableName | addSpace}}</h2>
+          </div>
+          <app-gen-table [displayedColumns]="fromArr['displayedColumns']" [dataSource]="fromArr['dataSource']" [tableName] = "fromArr['tableName']">
+              <div *ngIf="fromArr['dataSource'].data.length === 0" class="noData">No data</div>
+          </app-gen-table>
+      </div>
+    </div>
+  </div>

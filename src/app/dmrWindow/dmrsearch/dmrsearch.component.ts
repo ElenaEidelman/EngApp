@@ -18,8 +18,8 @@ export class DmrsearchComponent implements OnInit {
     private fb: FormBuilder,
     private dataService: GetDataService,
     private dialog: MatDialog,
-  ) { }
-
+  ) {
+   }
   areaArr = ['ALL', 'FAB', 'SORT'];
   locationArr = [];
   statusArr = ['ALL', 'OP', 'CL', 'DL', 'REOP'];
@@ -182,6 +182,7 @@ export class DmrsearchComponent implements OnInit {
         globalSearch: this.dmrSearchForm.value
       }
       this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(result => {
+        document.getElementById('tabledata').scrollIntoView();
           if(Object.keys(result).length == 0){
             this.dataSource = [];
             this.displayedColumns = [];

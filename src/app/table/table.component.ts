@@ -32,7 +32,7 @@ export class TableComponent implements OnInit {
   addList = new Set();
   setRemove = new Set();
   disabledList = new Set();
-  linkEncrypt = "test";
+  linkEncrypt = "";
   scrapChecked = false;
   dataSourceSelectedByScrap;
 
@@ -42,7 +42,7 @@ export class TableComponent implements OnInit {
     this.linkEncrypt = localStorage.getItem('Encrypt');
     let username = localStorage.getItem('user');
     this.archionList(this.displayedData, username);
-    this.buttonName = this.disableSelected != false ? 'Save to Archion' : 'Delete from Archion';
+    this.buttonName = this.disableSelected != false ? 'Save to Archive' : 'Delete from Archive';
     this.dataSourceSelectedByScrap = Object.create(this.dataSource);
   }
 
@@ -87,7 +87,6 @@ export class TableComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   toogleRow(row: any, event) {
-    console.log(this.selection);
     if (event.checked) {
       this.addList.add(row.number);
       if (this.setRemove.has(row.number)) {
@@ -151,8 +150,7 @@ export class TableComponent implements OnInit {
           this.addList.add(num.listNumber);
           this.disabledList.add(num.listNumber);
         }
-        debugger
-        let d = this.dataSource.data;
+        // let d = this.dataSource.data;
         this.selection = new SelectionModel<DmrList>(true, selectionArray);
       }
     );

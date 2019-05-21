@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DmrList } from 'src/app/classes/dmrList';
 import { MatTableDataSource } from '@angular/material';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-archion',
@@ -60,31 +61,29 @@ export class ArchionComponent implements OnInit {
           }
           this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
             dmrsList => {
-              if (Object.keys(dmrsList).length > 0) {
+              let arrR ;
+              let dmrListKeys = Object.keys(dmrsList);
+              let obj = Object.create(DmrList);
+              if (dmrListKeys.length > 0) {
+                arrR = dmrListKeys.map(k => dmrsList[k]);
+
                 //create displayedColumns
                 this.displayedColumns.push('select');
                 Object.keys(dmrsList[0]).forEach((item) => {
                   this.displayedColumns.push(item);
                 });
+
                 //create sortingTable
                 sortingTable.forEach((element, i) => {
-                  let selectionArr = [];
                   element['dmrNums'].forEach((dmrN, index) => {
-                    
-                    //find same dmr number in dmrsList and replace this number with dmr element
-                    for (let element in dmrsList) {
-                      if (dmrsList[element]['number'] == dmrN) {
-                        selectionArr.push(dmrsList[element]);
-                      }
-                    }
-                    sortingTable[i]['dmrNums'] = selectionArr;
+                    let ind = sortingTable[i]['dmrNums'].findIndex(i => i == dmrN);
+                    sortingTable[i]['dmrNums'][ind] = arrR.find(x => x.number == dmrN);
                   });
                 });
                 this.tabsArr = sortingTable;
 
                 //convert to MatTableDataSource objects
                 for (let d in sortingTable) {
-                  let obj = Object.create(DmrList);
                   obj = sortingTable[d]['dmrNums'];
                   sortingTable[d]['dmrNums'] = new MatTableDataSource<DmrList>(obj);
                 }

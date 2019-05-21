@@ -15,6 +15,8 @@ import { DmrDepartmentComponent } from './dmrWindow/dmr-department/dmr-departmen
 import { DmrJetComponent } from './dmrWindow/dmr-jet/dmr-jet.component';
 import { DmrWaitingforComponent } from './dmrWindow/dmr-waitingfor/dmr-waitingfor.component';
 import { ArchionComponent } from './dmrWindow/archion/archion.component';
+import { WindowEspComponent } from './window-esp/window-esp.component';
+import { WindowLotInfoComponent } from './window-lot-info/info/window-lot-info.component';
 
 
 
@@ -40,6 +42,9 @@ const routes: Routes = [
                 ]
       },
       {path: 'swr', component: SwrComponent},
+      {path: 'lotinfo', component: WindowLotInfoComponent,
+        children: []},
+      {path:'esp', component: WindowEspComponent},
       {path: 'editprofile',component: EditprofileComponent}
     ]
   },

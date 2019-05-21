@@ -42,10 +42,24 @@ export class DmrDepartmentComponent implements OnInit {
           }
           this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
             result => {
+            let distinctResult = [];
+            const set = new Set();
+              
+
               if(Object.keys(result).length > 0){
                 // this.dmrsData = result;
                 let obj = Object.create(DmrList);
-                obj = result;
+
+                for(const item in result){
+                  if(!set.has(result[item].number)){
+                    set.add(result[item].number);
+                    distinctResult.push(result[item]);
+                  }
+                }
+
+
+
+                obj = distinctResult;
                 //debugger
                 this.dataSource = new MatTableDataSource<DmrList>(obj);
                 this.displayedColumns.push('select');

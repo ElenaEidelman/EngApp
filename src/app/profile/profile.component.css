@@ -17,14 +17,13 @@
     background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; */
 }
 .img_profile img{
-    height: 115%;
-    width: 35%;
-    border-radius: 50%;
+    height: 118%;
     box-shadow: 0 0 14px rgba(0,0,0,0.9);
 }
 .side-bar{
     /* background: #003da7; */
-    height: calc(100vh - 100px);
+    /* height: calc(100vh - 100px); */
+    height: 100%;
     width: 130px;
     box-shadow: 5px 0 5px -5px rgba(0,0,0,0.9), inset 0 5px 7px -5px rgba(0,0,0,0.9);
     padding: 15px 0;
@@ -43,10 +42,31 @@
     display: flex;
     height: calc(100vh - 100px);
 }
-/* .content{
-    width: calc(100% - 130px);
-} */
+
 .wrap-buttons button{
     margin:10px;
     box-shadow: 0px 0px 5px #000;
+}
+
+
+.buttonToUp{
+    cursor: pointer;
+    z-index: 9999;
+    position: relative;
+}
+.buttonToUp mat-icon{
+    font-size: 55px;
+    position: fixed;
+    right: 45px;
+    bottom: 10%;
+    height: 55px;
+    width: 55px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    border-radius: 10px;
+  }
+.open-close-side-button{
+    position: fixed;
+    z-index: 999;
+    background: rgba(255,255,255,0.7);
 }

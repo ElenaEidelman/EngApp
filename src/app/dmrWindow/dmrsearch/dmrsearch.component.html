@@ -137,11 +137,12 @@
             <mat-select multiple formControlName="WaitingFor">
               <mat-form-field class="wrap-filter">
                 <input matInput focused="'true'" type="text"
-                  (keyup)="applyFilter('selectedWaitingFor','waitingForArr',$event.target.value,'nameAndLname')" autocomplete="off"
-                  placeholder="search">
+                  (keyup)="applyFilter('selectedWaitingFor','waitingForArr',$event.target.value,'nameAndLname')"
+                  autocomplete="off" placeholder="search">
               </mat-form-field>
               <mat-option [value]="user.badge" *ngFor="let user of selectedWaitingFor"
-                (onSelectionChange)="change('WaitingFor',$event)">{{user.nameAndLname}}</mat-option>
+                (onSelectionChange)="change('WaitingFor',$event)">{{user.nameAndLname}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -198,10 +199,12 @@
     </div>
   </form>
   <hr>
-  <div *ngIf="dataSource">
-    <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection"
-      [displayedData]="displayedData">
-      <div *ngIf="noData" class="noData">No data</div>
-    </app-table>
+  <div id="tabledata">
+    <div *ngIf="dataSource">
+      <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection"
+        [displayedData]="displayedData">
+        <div *ngIf="noData" class="noData">No data</div>
+      </app-table>
+    </div>
   </div>
 </div>
