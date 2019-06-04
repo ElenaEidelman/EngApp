@@ -1,31 +1,45 @@
 <div class="wrap-component">
   <div class="dmr-header">
     <div class="wrap-buttons">
-      <div>
-        <button mat-flat-button>
-          <!-- <a [routerLink]="['newdmr']">New Dmr</a> -->
-          <a href="http://w2tsl72/FAB-2_TEST/HeaderData.asp?act=7&pass={{linkEncrypt}}" target="_blank">New Dmr</a>
-        </button>
+      <div class="button-menu" matRipple [matRippleColor]="color">
+        <a href="http://w2tsl72/FAB-2_TEST/HeaderData.asp?act=7&pass={{linkEncrypt}}" target="_blank">
+          <span class="wrap-text-icon">
+            <mat-icon>fiber_new</mat-icon>
+            <div> Dmr</div>
+          </span>
+        </a>
       </div>
-      <div>
-        <button mat-flat-button>
-          <a [routerLink]="['dmrlist/',dmrBy]">Dmr List</a>
-        </button>
+      <div class="button-menu" matRipple [matRippleColor]="color">
+        <a [routerLink]="['dmrlist/',dmrBy]">
+          <span class="wrap-text-icon">
+            <mat-icon>view_headline</mat-icon>
+            <div> Dmr List</div>
+          </span>
+        </a>
       </div>
-      <div>
-        <button mat-flat-button>
-          <a [routerLink]="['dmrsearch']">Dmr Search</a>
-        </button>
+      <div class="button-menu" matRipple [matRippleColor]="color">
+        <a [routerLink]="['dmrsearch']">
+          <span class="wrap-text-icon">
+            <mat-icon>search</mat-icon>
+            <div> Dmr Search</div>
+          </span>
+        </a>
       </div>
-      <div>
-        <button mat-flat-button>
-          <a [routerLink]="['byMonth']">By Month</a>
-        </button>
+      <div class="button-menu" matRipple [matRippleColor]="color">
+        <a [routerLink]="['byMonth']">
+          <span class="wrap-text-icon">
+            <mat-icon>calendar_today</mat-icon>
+            <div> By Month</div>
+          </span>
+        </a>
       </div>
-      <div>
-        <button mat-flat-button>
-          <a [routerLink]="['archion']">Archive</a>
-        </button>
+      <div class="button-menu" matRipple [matRippleColor]="color">
+        <a [routerLink]="['archion']">
+          <span class="wrap-text-icon">
+            <mat-icon>archive</mat-icon>
+            <div> Archive</div>
+          </span>
+        </a>
       </div>
 
     </div>

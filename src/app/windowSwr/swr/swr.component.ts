@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-swr',
@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SwrComponent implements OnInit {
 
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {;
   }
-
 }
+

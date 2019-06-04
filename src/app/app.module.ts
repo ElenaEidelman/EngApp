@@ -36,6 +36,8 @@ import { GenTableComponent } from './gen-table/gen-table.component';
 import { RemoveSpacePipe } from './remove-space.pipe';
 import { AddSpacePipe } from './add-space.pipe';
 import { ScrollToTopDirective } from './scroll-to-top.directive';
+import {MatRippleModule} from '@angular/material/core';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -79,9 +81,8 @@ import { ScrollToTopDirective } from './scroll-to-top.directive';
     ReactiveFormsModule,
     NgbModule,
     HttpClientModule,
-    // ScrollingModule,
-    // ScrollDispatchModule,
-    // ScrollEventModule
+    MatRippleModule,
+    MatPaginatorModule
   ],
   entryComponents:[
     AlertDialogComponent

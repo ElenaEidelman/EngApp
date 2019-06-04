@@ -99,12 +99,13 @@ export class ProfileComponent implements OnInit {
       if (currentScroll > 0) {
         // Internet Explorer browser
         if((browser.indexOf("MSIE ") > -1 || browser.indexOf("Trident/") > -1)){
-          el.scrollTop = (currentScroll - (currentScroll / 5));
+          // el.scrollTop = (currentScroll - (currentScroll / 5));
+          el.scrollTop = 0;
         }
         else{
-          el.scrollTo(0, currentScroll - (currentScroll / 5));
+          el.scrollTo(0, 0);
         }
-        window.requestAnimationFrame(smoothscroll);
+        // window.requestAnimationFrame(smoothscroll);
       }
     })();
   }

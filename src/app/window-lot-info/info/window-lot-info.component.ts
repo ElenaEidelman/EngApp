@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, Directive } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, Directive, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { LotInfo } from 'src/app/classes/lotInfo';
 import { MatTableDataSource } from '@angular/material';
@@ -12,6 +12,7 @@ import { GetDataService } from 'src/app/get-data.service';
 import { FormControl, Validator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StopNotice } from 'src/app/classes/lotStopNotice';
+import { GenTableComponent } from 'src/app/gen-table/gen-table.component';
 
 
 
@@ -21,12 +22,14 @@ import { StopNotice } from 'src/app/classes/lotStopNotice';
   templateUrl: './window-lot-info.component.html',
   styleUrls: ['./window-lot-info.component.css']
 })
-export class WindowLotInfoComponent implements OnInit, OnDestroy {
+export class WindowLotInfoComponent implements OnInit {
 
   constructor(
     private dataService: GetDataService,
     private router: Router
   ) { }
+
+  @ViewChild(GenTableComponent) child:GenTableComponent;
   spinner: boolean = false;
   spinnerContent: boolean = false;
   // dataSource;
@@ -38,23 +41,17 @@ export class WindowLotInfoComponent implements OnInit, OnDestroy {
   lotNumber = new FormControl('', Validators.required);
   fromTableArr = [];
   noLotNumber: boolean = false;
-
-
-
-
-
-  // lotInfoDisColumn = ["PRIORITY CLASS","LOT DATA","RUN TOOL","N_DPL","INT_FAB_DD","PROJ_DD","GAP","TIME","LOGICAL PPID","TYPE","QTY","OPER SEQ", "CURR & NEXT 3 STEPS","TLM","DD","HOLD","SWR","SN","STATION","AUTOMOTIVE"];
-  // lotHistoryDisColumn = ["product","route","step","Short Description","equipment","	Operator","move_in_time","move_out_time","move_in_wafer_cnt"];
-  // lotDmrDisColumn = ["Dmr #","Lot","Description","Status","Original location","Real location","Real Equipment","Real Area","Real Stage","Real Recipe","Qty Entered","Suspect","Rework","Scrap","Send On","High Risk","Suspect Wafers"];
-  // lotSwrDisColumn = ["SWR_ID","INITIATOR","SWR_DATE","LOOP_TYPE","USER_KEYWORD","SWR_TITLE","PROJECT","QUAL","SWR_STATUS"];
-  // lotDcopDisColumn = ["RECIPE NAME","EQPID","TITLE","DCOP","TIME","PROMPT","VALUE","Wafer"];
-  // lotProgressDisColumn = ["AREA","STAGE","RECIPE","DESCRIPTION","PARTNAME","LOGICAL","CAPABILITY","JET","TL","START_TIMER","END_TIMER","STOP","ONE_X_TRANS_HRS","TOOLS"];
-  // lotFutureHoldDisColumn = [];
+  lotProgressCurrentStep = '';
+  lotStatus = '';
+  color: string = 'rgba(99, 132, 179, 0.5)';
 
   ngOnInit() {
     if (this.dataService.lotInfo != undefined) {
       this.lotNumber.setValue(this.dataService.lotInfo.lotNumber);
       this.arrDataForTable = this.dataService.lotInfo.lotData;
+      let getStepForProgress = this.dataService.lotInfo.lotData.find(tbl => tbl.tableName == 'LotInfo');
+      this.lotProgressCurrentStep = getStepForProgress.obj[0]["CURRENT_STEP"];
+      this.lotStatus = getStepForProgress.obj[0]["STATUS"];
       this.lotInfo();
     }
     this.dataService.lotInfoData.subscribe(result => {
@@ -120,7 +117,7 @@ export class WindowLotInfoComponent implements OnInit, OnDestroy {
         data.fieldsName.forEach(element => {
           displayed_columns.push(element);
         });
-        this.fromTableArr.push({ dataSource: data_source, displayedColumns: displayed_columns, tableName: element.lotClass });
+        this.fromTableArr.push({ dataSource: data_source, displayedColumns: displayed_columns, tableName: element.lotClass, lotProgressCurStep: this.lotProgressCurrentStep, lotStatus: this.lotStatus });
 
       });
 
@@ -144,16 +141,31 @@ export class WindowLotInfoComponent implements OnInit, OnDestroy {
       this.noLotNumber = true;
     }
   }
+
+  navigateAnchorToRow(navigateTo: string){
+    let anchor = document.getElementById(navigateTo);
+    if(anchor != null){
+      anchor.scrollIntoView({block: "center"});
+    }
+    else{
+      let arr = navigateTo.split('-');
+      let search = arr[arr.length - 2];
+      this.child.applyFilter(search);
+    }
+    
+  }
   getDataFromDb() {
     this.spinner = true;
-    // return this.dataService.getDataLotInfo(this.lotNumber.value).then(result => {
-    //   this.spinner = false;
-    //   this.arrDataForTable = result;
-    //   this.lotInfo();
-    // });
     return this.dataService.getDataLotInfo(this.lotNumber.value).subscribe(result => {
       this.spinner = false;
       this.arrDataForTable = result;
+
+      let resultToArr = Object.keys(result).map((k) => result[k]);
+      let getStepForProgress = resultToArr.find(element => element.tableName == 'LotInfo');
+      this.lotProgressCurrentStep = getStepForProgress.obj[0]["CURRENT_STEP"];
+      let d = this.dataService.lotInfo.lotData.find(table => table);
+      this.lotStatus = getStepForProgress.obj[0]["STATUS"];
+
       this.lotInfo();
     });
   }
@@ -189,22 +201,19 @@ export class WindowLotInfoComponent implements OnInit, OnDestroy {
         case 'LotDmr':
           data_source = new MatTableDataSource<LotDmr>(obj);
           break;
+          
       }
 
       data.fieldsName.forEach(element => {
         displayed_columns.push(element);
       });
 
-      this.fromTableArr.push({ tableName: tableName, displayedColumns: displayed_columns, dataSource: data_source });
+      this.fromTableArr.push({ tableName: tableName, displayedColumns: displayed_columns, dataSource: data_source, lotProgressCurStep: this.lotProgressCurrentStep, lotStatus: this.lotStatus });
       this.spinnerContent = false;
     }
     else {
       this.noLotNumber = true;
     }
-  }
-
-  ngOnDestroy() {
-    // window.removeEventListener('scroll', this.scroll, true);
   }
 }
 

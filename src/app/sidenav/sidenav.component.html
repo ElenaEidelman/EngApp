@@ -1,11 +1,19 @@
 <div class="wrap-sidenav">
-  <ul class="sideNavUl">
-      <ng-container *ngFor="let sideNav of menuForSideNav; let i = index">
-        <li *ngIf="sideNav.ischecked">
-          <a routerLink="{{sideNav.controlname}}{{sideNav.path}}">{{sideNav.label}}</a>
-        </li>
-    </ng-container>
-  </ul>
+  <div>
+      <ul class="sideNavUl">
+          <ng-container *ngFor="let sideNav of menuForSideNav; let i = index">
+            <li *ngIf="sideNav.ischecked" matRipple>
+              <a routerLink="{{sideNav.controlname}}{{sideNav.path}}">{{sideNav.label}}</a>
+            </li>
+        </ng-container>
+      </ul>
+  </div>
+  <div class="imgProfile">
+      <span class="welcome">Welcome, {{userFName}}</span>
+      <img [src]="profileImg" />
+  </div>
 </div>
+
+
 
 

@@ -2,16 +2,16 @@ table {
     width: 100%;
   }
  tr > th:nth-child(odd){
-  background: lightgray;
+  background: rgba(211, 211, 211, 1);
 }
  tr > th:nth-child(even){
-  background: lightblue;
+  background: rgba(173, 216, 230, 1);
 }
 tr > td:nth-child(even){
   background: rgba(218, 240, 248,1);
 }
 tr > td:nth-child(odd){
-  background:rgba(230, 230, 230,1);
+  background:rgba(230, 230, 230,0.8);
 }
 tr td{
   text-align: center;
@@ -25,8 +25,19 @@ th{
   text-align: center;
 }
 .redColor{
-  background: red !important;
+  background: #ee5a5a !important;
   color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
+}
+.greenColor{
+  background: #b0e0a8 !important;
+  color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
+}
+.yellowColor{
+  background: #fdcb6e !important;
+  color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
 }
 .wrap-button button{
   color:#fff;
@@ -36,11 +47,41 @@ th{
 .wrap-button button.excel_button{
   background: #673ab7;
 }
+.wrap-button button.excel_button:hover{
+  background: rgba(80, 26, 172,1);
+}
 .wrap-filter-button{
   display: flex;
   justify-content: space-between;
 }
 
-.filter-wrap{
-  margin-right: 3em;
+tr.colorGreenRow td:nth-child(odd){
+  background:#b0e0a8 !important;
+  color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
+}
+tr.colorGreenRow td:nth-child(even){
+  background:#aceacf !important;
+  color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
+}
+tr.colorRedRow td:nth-child(odd){
+  background:#ee5a5a !important;
+  color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
+}
+tr.colorRedRow td:nth-child(even){
+  background:#f36a7b !important;
+  color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
+}
+tr.colorYellowRow td:nth-child(odd){
+  background:#fdcb6e !important;
+  color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
+}
+tr.colorYellowRow td:nth-child(even){
+  background:#ffd98e !important;
+  color:#fff;
+  text-shadow: 0px 0px 5px rgba(0,0,0,0.9);
 }

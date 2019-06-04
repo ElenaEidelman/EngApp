@@ -142,6 +142,17 @@ table{
  .mat-drawer-content{
    overflow: inherit;
  }
+
+ .archive .mat-tab-body-content{
+   padding: 0;
+ }
+ mat-icon-button:hover{
+   cursor: pointer;
+   z-index: 99999;
+ }
+ .tooltipclass{
+  font-size: 13px;
+}
 /* .mat-tab-body-wrapper {
   height: -webkit-fill-available;
 } */
@@ -154,5 +165,4 @@ table{
   color:#fff;
   font-size: 20px;
 } */
-
 

@@ -1,31 +1,48 @@
 
     <div class="wrap-filter-button">
-        <mat-form-field class="filter-wrap">
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
+        <div>
+            <mat-form-field class="filter-wrap">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              </mat-form-field>
+              <button mat-icon-button matTooltip="clear filter" matTooltipClass="tooltipclass" (click)="applyFilter('')">
+                <mat-icon>clear</mat-icon>
+              </button>
+        </div>
         <div class="wrap-button">
-          <button mat-raised-button color="primary" (click)="ExportTOExcel()" class="excel_button">Export as Excel</button>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="ExportTOExcel()" 
+            class="excel_button" 
+            matTooltip="Limited export data to excel, please choose all pages to export all data"
+            matTooltipClass="tooltipclass">
+              <mat-icon>description</mat-icon>
+              Export as Excel
+          </button>
         </div>
       </div>
     <ng-content></ng-content>
     <div #TABLE>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="{{obj}}" *ngFor="let obj of displayedColumns; let i = index;">
-                <th mat-header-cell *matHeaderCellDef> {{obj | uppercase}} </th>
-                <span *ngIf="obj == 'number'">
-                  <td mat-cell *matCellDef="let element" style="padding:5px">
-                    <a href="http://w2tsl72/FAB-2_test/DMRMenu.asp?DmrNum={{element[obj]}}&pass={{linkEncrypt}}"
-                      target="_blank">{{element[obj]}} </a>
+                <th mat-header-cell *matHeaderCellDef > {{obj | uppercase}} </th>
+                <span *ngIf="obj == 'SN' && tableName == 'LotInfo'" matTooltip ="{{obj}}">
+                  <td mat-cell *matCellDef="let element">
+                      <span *ngFor="let sn of element[obj].split(';')">
+                          <a href="http://esp_f2_prod/fab/esp_f2/SN_new/SNEditFrm.aspx?SNID={{sn}}" target="_blank">{{sn}}</a><br>
+                      </span>
                   </td>
                 </span>
-                <td mat-cell *matCellDef="let element" [class.redColor]="obj == 'scrap' && element[obj] > 0">
+                <td mat-cell *matCellDef="let element" [ngClass]="setColors(obj,element[obj])">
                   <section>{{element[obj]}}</section>
                 </td>
               </ng-container>
-          
-          
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+            <tr 
+              [ngClass]="rowColor(tableName, row.AREA + '-' + row.STAGE + '-' + row.RECIPE + '-' + tableName)"  
+              mat-row *matRowDef="let row; columns: displayedColumns; " 
+              id="{{row.AREA}}-{{row.STAGE}}-{{row.RECIPE}}-{{tableName}}"></tr>
           </table>
+          <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
     </div>
 

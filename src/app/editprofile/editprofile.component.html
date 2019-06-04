@@ -1,5 +1,5 @@
 <div class="wrap-component">
-  <form [formGroup]="editForm" *ngIf="editForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editForm" *ngIf="editForm">
     <div class="wrap-create-menu">
       <mat-accordion>
         <mat-expansion-panel>
@@ -32,8 +32,8 @@
       <!--Show/Hidden blocks ---start-->
 
       <!--Dmr-->
-      <div class="wrap-hidden-block">
-        <mat-accordion *ngIf="dmr">
+      <div class="wrap-hidden-block" *ngIf="dmr">
+        <mat-accordion >
           <mat-expansion-panel>
 
             <mat-expansion-panel-header>
@@ -71,7 +71,7 @@
                       <mat-accordion>
                         <div *ngFor="let department of jets | sortABC; let i = index" class="margin-accordion"
                           formGroupName="{{department.controlname}}">
-                          <div *ngIf="viewJetBlock.includes(department.controlname)">
+                          <div *ngIf="include('viewJetBlock',department.controlname)">
                             <mat-expansion-panel *ngIf="department.child.length > 0">
                               <mat-expansion-panel-header>
                                 <mat-panel-title>
@@ -96,7 +96,7 @@
 
                                     <div class="wrapJetCheckboxSecondChild" style="flex-grow:2">
                                       <mat-form-field
-                                        *ngIf="viewToolBlock.includes(department.controlname+jet.controlname)">
+                                        *ngIf="include('viewToolBlock',department.controlname+jet.controlname)">
                                         <mat-label>{{jet.controlname}}</mat-label>
                                         <mat-select multiple formControlName="{{jet.controlname}}t">
                                           <div class="select-deselct-buttons">
@@ -145,15 +145,13 @@
               </div>
 
             </div>
-
-
           </mat-expansion-panel>
         </mat-accordion>
       </div>
 
       <!--Swr-->
-      <div class="wrap-hidden-block">
-        <mat-accordion *ngIf="swr">
+      <div class="wrap-hidden-block" *ngIf="swr">
+        <mat-accordion >
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title></mat-panel-title>
@@ -169,8 +167,8 @@
       </div>
 
       <!--Esp-->
-      <div class="wrap-hidden-block">
-        <mat-accordion *ngIf="esp">
+      <div class="wrap-hidden-block" *ngIf="esp">
+        <mat-accordion >
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title></mat-panel-title>
@@ -186,8 +184,8 @@
       </div>
 
       <!--Lot Info-->
-      <div class="wrap-hidden-block">
-          <mat-accordion *ngIf="lotinfo">
+      <div class="wrap-hidden-block" *ngIf="lotinfo">
+          <mat-accordion >
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title></mat-panel-title>
@@ -206,7 +204,7 @@
 
     </div>
     <div class="wrap-form-button">
-      <button mat-flat-button color="primary" type="submit" [disabled]="!editForm.valid">
+      <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!editForm.valid">
         Save
       </button>
     </div>

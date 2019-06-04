@@ -78,10 +78,12 @@ export class EditprofileComponent implements OnInit, OnDestroy {
             }
           });
           if (jet.ischecked) {
-            if (!this.viewToolBlock.includes(department.controlname + jet.controlname)) {
+            // if (!this.viewToolBlock.includes(department.controlname + jet.controlname)) {
+              if (this.viewToolBlock.indexOf(department.controlname + jet.controlname) == -1) {
               this.viewToolBlock.push(department.controlname + jet.controlname);
             }
-            if (!this.viewJetBlock.includes(department.controlname)) {
+            // if (!this.viewJetBlock.includes(department.controlname)) {
+              if (this.viewJetBlock.indexOf(department.controlname) == -1) {
               this.viewJetBlock += department.controlname + ',';
             }
           }
@@ -103,8 +105,6 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     });
     return group;
   }
-
-
   onSubmit() {
     let userDetails = JSON.parse(localStorage.getItem('userDetails'));
     // let details = this.editForm.value;
@@ -122,7 +122,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     Object.keys(jetFormData).forEach((dep) => {
       let jetData = [];
       Object.keys(jetFormData[dep]).forEach((jet) => {
-        if (jetFormData[dep][jet] == true && depChecked.includes(dep)) {
+        // if (jetFormData[dep][jet] == true && depChecked.includes(dep)) {
+          if (jetFormData[dep][jet] == true && (depChecked.indexOf(dep) != -1)) {
           let toolsData = jetFormData[dep][jet + 't'];
           let tools = [];
           // if(toolsData.length > 0){
@@ -167,11 +168,11 @@ export class EditprofileComponent implements OnInit, OnDestroy {
       }
     );
   }
-
   //check box checked
   toggleVisibility(controlName: string, event) {
     //select all in check box
-    if (controlName.includes('all')) {
+    // if (controlName.includes('all')) {
+      if (controlName.indexOf('all') > 0) {
       let pref = controlName.substring(0, controlName.indexOf('-'));
       if (pref == 'department') {
         if (event.checked) {
@@ -224,7 +225,6 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
   //radio button selected
   radioChange(event) {
-    debugger
     this.dataService.changeSubPath(new SubPath('DMR',event.value));
     this.viewRadioBlock = event.value;
   }
@@ -301,5 +301,8 @@ export class EditprofileComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+  }
+  include(str: string, subStr){
+    return this[str].indexOf(subStr) > -1;
   }
 }

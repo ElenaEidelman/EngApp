@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
 import { element, elementClassProp } from '@angular/core/src/render3';
@@ -6,27 +6,32 @@ import { GetDataService } from '../get-data.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AlertDialogComponent } from '../dialogs/alert-dialog/alert-dialog.component';
 import * as XLSX from 'xlsx';
-import { filter } from 'rxjs/operators';
 import { DmrList } from '../classes/dmrList';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class TableComponent implements OnInit {
 
   constructor(
-    private dataService: GetDataService,
-    private dialog: MatDialog) { }
+                private dataService: GetDataService,
+                private dialog: MatDialog
+              ) { }
   @Input() selection;
   @Input() displayedColumns;
   @Input() dataSource;
   @Input() displayedData;
   @Input() disableSelected;
   @ViewChild('TABLE') table: ElementRef;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   buttonName: string;
+  archive:string;
   archionListFromDb;
   listToArchion = [];
   addList = new Set();
@@ -35,14 +40,20 @@ export class TableComponent implements OnInit {
   linkEncrypt = "";
   scrapChecked = false;
   dataSourceSelectedByScrap;
+  pageSizeOptions = [];
 
 
 
   ngOnInit() {
+    setTimeout(() => {
+      this.buttonName = this.disableSelected != false ? 'Save to Archive' : 'Delete from Archive';
+      this.archive = this.disableSelected != false ? 'archive' : 'unarchive';
+    },0);
+    this.dataSource.paginator = this.paginator;
+    this.pageSizeOptions = [15,30,45,this.dataSource.data.length];
     this.linkEncrypt = localStorage.getItem('Encrypt');
     let username = localStorage.getItem('user');
     this.archionList(this.displayedData, username);
-    this.buttonName = this.disableSelected != false ? 'Save to Archive' : 'Delete from Archive';
     this.dataSourceSelectedByScrap = Object.create(this.dataSource);
   }
 
@@ -206,5 +217,9 @@ export class TableComponent implements OnInit {
     else{
       this.dataSource = this.dataSourceSelectedByScrap;
     }
+  }
+
+  linkTo(link){
+
   }
 }

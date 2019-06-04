@@ -2,17 +2,45 @@
     display:flex;
     justify-content: space-around;
 }
-.wrap-buttons div > button{
+/* .wrap-buttons div > button{
     background: rgb(98,150,190);
+} */
+.wrap-buttons > div{
+    cursor: pointer;
+    z-index: 99999999999;
+    text-align: center;
 }
-.wrap-buttons div > button  a{
-    color: #fff;
+.wrap-buttons div > a{
+    /* background: rgb(98,150,190); */
+    color: rgb(98,150,190);
+    display: block;
+    height: 100%;
 }
-.dmr-header{
-
+.dmr-header > .wrap-buttons > div :hover{
+        color: rgb(15,79,128);
 }
 .dmr-content{
-    border: 1px solid gray;
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.3);
     min-height: 70vh;
     margin: 10px 0;
+}
+.button-menu{
+    flex-grow: 1;
+    box-shadow:0 0px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    margin:5px;
+    height:70px;
+    background: rgba(230, 230, 230,1);
+}
+mat-icon{
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    line-height: 70px;
+}
+.wrap-text-icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    line-height: 70px;
 }

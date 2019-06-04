@@ -20,7 +20,7 @@
 }
 .wrap-date{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin: 3em 3em 0 3em;
 }
 .wrap-form-button{

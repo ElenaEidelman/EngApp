@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LogInComponent } from './log-in/log-in.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileGuardService } from './profile-guard.service';
-import { ContentComponent } from './content/content.component';
 import { DmrComponent } from './dmrWindow/dmr/dmr.component';
 import { DmrlistComponent } from './dmrWindow/dmrlist/dmrlist.component';
 import { NewdmrComponent } from './dmrWindow/newdmr/newdmr.component';
@@ -48,11 +47,6 @@ const routes: Routes = [
       {path: 'editprofile',component: EditprofileComponent}
     ]
   },
-  //  {path:'content/:page', component: ContentComponent},
-
-
-
-  //  {path:'content', component: ContentComponent},
    {path:'**',redirectTo:'logIn'}
 ];
 

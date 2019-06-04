@@ -1,14 +1,31 @@
 <div>
   <div class="wrap-filter-button">
-    <mat-form-field class="filter-wrap">
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
+      <div class="filter-wrap">
+          <mat-form-field >
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+            </mat-form-field>
+            <button mat-icon-button matTooltip="clear filter" matTooltipClass="tooltipclass" (click)="applyFilter('')">
+              <mat-icon>clear</mat-icon>
+            </button>
+      </div>
     <mat-checkbox class="scrap-checkbox" (change)="scrapSelected($event)" [checked]="scrapChecked" color="primary">
       Scrap
     </mat-checkbox>
     <div class="wrap-button">
-      <button mat-raised-button color="primary" (click)="ExportTOExcel()" class="excel_button">Export as Excel</button>
-      <button mat-flat-button (click)="saveToArchion()" class="archion_button">{{buttonName}}</button>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="ExportTOExcel()" 
+        class="excel_button" 
+        matTooltip="Limited export data to excel, please choose all pages to export all data"
+        matTooltipClass="tooltipclass">
+          <mat-icon>description</mat-icon>
+          Export as Excel
+      </button>
+      <button mat-flat-button (click)="saveToArchion()" class="archion_button">
+        <mat-icon>{{archive}}</mat-icon>
+        {{buttonName}}
+      </button>
     </div>
   </div>
   <ng-content></ng-content>
@@ -33,9 +50,9 @@
         <th mat-header-cell *matHeaderCellDef> {{obj | uppercase}} </th>
         <span *ngIf="obj == 'number'">
           <td mat-cell *matCellDef="let element" style="padding:5px;">
-              <a href="http://w2tsl72/FAB-2_test/Login.asp?nextUrl=DMRMenu.asp?DmrNum={{element[obj]}}&act=5&pass={{linkEncrypt}}"
-                target="_blank" style="cursor:pointer">{{element[obj]}} </a>
-            </td>
+            <a href="http://w2tsl72/FAB-2_TEST/Login.asp?nextUrl=DMRMenu.asp?DmrNum={{element[obj]}}&act=5&pass={{linkEncrypt}}"
+              target="_blank" style="cursor:pointer">{{element[obj]}} </a>
+          </td>
         </span>
         <td mat-cell *matCellDef="let element" [class.redColor]="obj == 'scrap' && element[obj] > 0">
           <section>{{element[obj]}}</section>
@@ -45,5 +62,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" id="{{row.number}}">
       </tr>
     </table>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
   </div>
 </div>

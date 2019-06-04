@@ -12,6 +12,8 @@ export class SidenavComponent implements OnInit,OnDestroy {
 
   constructor(private dataService: GetDataService) { }
   @Input() userName;
+  @Input() profileImg;
+  @Input() userFName;
   menuForSideNav: Menu[] = [];
   unsub;
   subMenu = [

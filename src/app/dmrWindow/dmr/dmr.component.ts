@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { GetDataService } from 'src/app/get-data.service';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-dmr',
@@ -17,6 +18,7 @@ export class DmrComponent implements OnInit {
   badge;
   userName = localStorage.getItem('user');
   linkEncrypt = "";
+  color: string = 'rgba(222, 222, 222, 0.5)';
 
   ngOnInit() {
     this.linkEncrypt = localStorage.getItem('Encrypt');
@@ -35,5 +37,10 @@ export class DmrComponent implements OnInit {
     });
 
 
+  }
+
+  navigateTo(linkTo: string){
+    // window.location.href = linkTo;
+    this.route.navigate(['dmrsearch']);
   }
 }

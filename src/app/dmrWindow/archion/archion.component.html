@@ -1,7 +1,7 @@
-<div class="wrap-component">
+<div class="wrap-component archive">
     <mat-tab-group animationDuration="0ms" (selectedTabChange)="tabClicked($event)">
         <mat-tab *ngFor="let tab of tabsArr" label="{{tab.table}}" >
-            <section>
+            <section class="archive-table-wrap">
                 <app-table [displayedColumns]="displayedColumns" [dataSource]="tab.dmrNums" [selection]="selection" [displayedData]="tab.table" [disableSelected]="false">
                     <div *ngIf="noData" class="noData">No data</div>
                 </app-table>

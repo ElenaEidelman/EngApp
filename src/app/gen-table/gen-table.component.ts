@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-gen-table',
@@ -12,12 +14,20 @@ export class GenTableComponent implements OnInit {
   @Input() displayedColumns;
   @Input() dataSource;
   @Input() tableName;
+  @Input() lotProgressStep;
+  @Input() lotStatus;
   @ViewChild('TABLE') table: ElementRef;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  pageSizeOptions = [];
+
+
 
   ngOnInit() {
+    this.pageSizeOptions = [15,30,45,this.dataSource.data.length];
+    this.dataSource.paginator = this.paginator;
+    
+    // this.lotProgressStep = this.lotProgressStep.split('-');
   }
-
-
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -34,5 +44,42 @@ export class GenTableComponent implements OnInit {
     let fileName = day + "-" + month + "-" + date.getFullYear() + "__" + date.getHours() + "-" + date.getMinutes() + "-" + date.getSeconds() + "_" + this.tableName
     XLSX.writeFile(wb, fileName + '.xlsx');
 
+  }
+
+  setColors(tableObj, elementTableObj) {
+    let classes = {};
+    if (tableObj == 'STATUS' && elementTableObj == 'HOLD') {
+      classes = {
+        redColor: true,
+        yellowColor: false,
+        greenColor: false
+      }
+    }
+    else if (tableObj == 'STATUS' && elementTableObj == 'RUN') {
+      classes = {
+        redColor: false,
+        yellowColor: false,
+        greenColor: true
+      }
+    }
+    else if (tableObj == 'STATUS' && elementTableObj == 'WAIT') {
+      classes = {
+        redColor: false,
+        yellowColor: true,
+        greenColor: false
+      }
+    }
+
+    return classes;
+  }
+
+  rowColor(tableName, id) {
+    if (tableName == 'LotProgress' && id == this.lotProgressStep + '-' + tableName) {
+      switch (this.lotStatus) {
+        case 'HOLD': return 'colorRedRow';
+        case 'RUN': return 'colorGreenRow';
+        case 'WAIT': return 'colorYellowRow';
+      }
+    }
   }
 }

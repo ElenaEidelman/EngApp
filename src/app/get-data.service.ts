@@ -17,7 +17,9 @@ export class GetDataService implements OnInit {
   constructor(private http: HttpClient) { 
 
   }
-  baseUrl = 'http://localhost:63778/api';
+  //ng build --base-href "/LotsInfoMng/" --prod --aot=true
+  //baseUrl = 'http://localhost:63778/api';
+  baseUrl = 'http://mhvmwebprod3/lotsinfomanagement/api';
   menuData = new EventEmitter<Menu[]>();
   lotInfoData = new EventEmitter();
   menu:Menu[] = [];
@@ -52,10 +54,10 @@ export class GetDataService implements OnInit {
   }
 
   checkUser(userName: string, password: string){
-    //debugger
+   //debugger
+    //let headers = new HttpHeaders().set("Content-Type", "application/x-www-form-urlencoded");
     return this.http.post(`${this.baseUrl}/users/IsValid`,{username: userName, password: password}).pipe(
       map(result => {
-        //debugger
         return result;
       })
     );

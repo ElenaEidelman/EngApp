@@ -35,8 +35,14 @@ th{
 .wrap-button button.archion_button{
   background: lightslategray;
 }
+.wrap-button button.archion_button:hover{
+  background: gray;
+}
 .wrap-button button.excel_button{
   background: #673ab7;
+}
+.wrap-button button.excel_button:hover{
+  background: rgba(80, 26, 172,1);
 }
 .wrap-filter-button{
   display: flex;

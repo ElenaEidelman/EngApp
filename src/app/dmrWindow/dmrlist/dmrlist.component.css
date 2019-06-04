@@ -5,9 +5,13 @@
 .wrap-buttons .button-element{
     margin:10px;
 }
-.wrap-buttons div > button{
-    background: rgb(15,79,128);
+.wrap-buttons div > a:hover{
+    background: rgb(98,150,190);
 }
-.wrap-buttons div > button  a{
+/* .wrap-buttons div > button{
+    background: rgb(15,79,128);
+} */
+.wrap-buttons div > a{
+    background: rgb(15,79,128);
     color: #fff;
 }

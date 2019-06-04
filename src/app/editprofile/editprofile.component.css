@@ -57,7 +57,9 @@ section, mat-radio-group{
 .wrap-hidden-block{
     margin: 20px 0;
 }
-
+.displayNone{
+    display: none;
+}
 .jet-block{
     flex-direction: row;
 }
