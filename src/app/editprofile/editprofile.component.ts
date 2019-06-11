@@ -156,6 +156,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
       departmentfilter: JSON.stringify(departmentFilterObj),
       jetfilter: JSON.stringify(jetFilterObj)
     }
+    debugger
     this.dataService.saveUserProfileDetails(dataToDb).subscribe(
       result => {
         debugger

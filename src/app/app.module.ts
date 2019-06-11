@@ -38,6 +38,7 @@ import { AddSpacePipe } from './add-space.pipe';
 import { ScrollToTopDirective } from './scroll-to-top.directive';
 import {MatRippleModule} from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 
@@ -71,6 +72,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     RemoveSpacePipe,
     AddSpacePipe,
     ScrollToTopDirective,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

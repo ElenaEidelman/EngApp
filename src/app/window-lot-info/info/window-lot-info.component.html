@@ -73,7 +73,7 @@
         </a>
       </div>
       <div class="button-menu" matRipple [matRippleColor]="color">
-        <a (click)="getData('LotProgress')">
+        <a (click)="getBigData('LotProgress')">
           <span class="wrap-text-icon">
             <div> Lot progress</div>
           </span>
@@ -107,10 +107,12 @@
       <div *ngIf="fromArr.tableName == 'LotProgress'" class="anchorRow">
         <button mat-button (click)="navigateAnchorToRow(lotProgressCurrentStep + '-' + fromArr.tableName)">Go To Current
           Recipe</button>
+          <mat-error>{{noRecipe}}</mat-error>
       </div>
       <app-gen-table [displayedColumns]="fromArr['displayedColumns']" [dataSource]="fromArr['dataSource']"
         [tableName]="fromArr['tableName']" [lotProgressStep]="fromArr['lotProgressCurStep']"
-        [lotStatus]="fromArr['lotStatus']">
+        [lotStatus]="fromArr['lotStatus']"
+        [indexStepProgressLot]="indexStepProgressLot">
         <div *ngIf="fromArr['dataSource'].data.length === 0" class="noData">No data</div>
       </app-gen-table>
     </div>

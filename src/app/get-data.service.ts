@@ -22,11 +22,15 @@ export class GetDataService implements OnInit {
   baseUrl = 'http://mhvmwebprod3/lotsinfomanagement/api';
   menuData = new EventEmitter<Menu[]>();
   lotInfoData = new EventEmitter();
+  userDoEdit = new EventEmitter<string>();
   menu:Menu[] = [];
   lotInfo;
 
  ngOnInit(){
-
+  this.userDoEdit.emit('');
+ }
+ editUserDoEdit(msg: string){
+   this.userDoEdit.emit(msg);
  }
   sideMenu(menu:Menu){
     let index = this.menu.findIndex(element => element['label'] == menu['label']);
@@ -119,6 +123,7 @@ export class GetDataService implements OnInit {
   getDmrsList(data:any){
     return this.http.post(`${this.baseUrl}/dmrs/DmrList`,new String(data)).pipe(
       map(result => {
+        debugger
         return result;
       })
     );
@@ -193,8 +198,15 @@ export class GetDataService implements OnInit {
     this.lotInfoData.emit({});
     return this.http.post(`${this.baseUrl}/lotInfo/LotInfoData`,new String(lotNumber)).pipe(
       map(result => {
-        this.lotInfoData.emit({lotNumber: lotNumber, lotData: result});
-        this.lotInfo = {lotNumber: lotNumber, lotData: result};
+        this.lotInfoData.emit({lotNumber: lotNumber.split('-')[0], lotData: result});
+        this.lotInfo = {lotNumber: lotNumber.split('-')[0], lotData: result};
+        return result;
+      })
+    );
+  }
+  getBigDataLotInfo(lotNumber: string){
+    return this.http.post(`${this.baseUrl}/lotInfo/LotInfoData`,new String(lotNumber)).pipe(
+      map(result => {
         return result;
       })
     );
@@ -202,6 +214,11 @@ export class GetDataService implements OnInit {
   emptyLotInfo(){
     this.lotInfoData.emit({});
     this.lotInfo = [];
+  }
+
+  addToLotInfo(lotNumber: string, obj: any){
+    this.lotInfoData.emit({lotNumber: lotNumber, lotData: obj});
+    this.lotInfo = {lotNumber: lotNumber, lotData: obj};
   }
 
 }

@@ -5,6 +5,7 @@ import { FormBuilder, FormArray } from '@angular/forms';
 import { GetDataService } from 'src/app/get-data.service';
 import { AlertDialogComponent } from 'src/app/dialogs/alert-dialog/alert-dialog.component';
 import { MatDialog, MatTableDataSource } from '@angular/material';
+import { PagingService } from 'src/app/paging.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class DmrsearchComponent implements OnInit {
     private fb: FormBuilder,
     private dataService: GetDataService,
     private dialog: MatDialog,
+    private pagingService: PagingService
   ) {
    }
   areaArr = ['ALL', 'FAB', 'SORT'];
@@ -38,6 +40,13 @@ export class DmrsearchComponent implements OnInit {
   selectedWaitingFor;
   selectedTitels;
   selectedLocations;
+  viewItemsOnPaging: number = 20;
+
+  pagerEquipment:any = {};
+  pagerWaitingFor:any = {};
+  pagerTitels:any = {};
+  pagerDefectGroup1:any = {};
+  pagerDefectGroup2:any = {};
 
   dmrSearchForm = this.fb.group({
     LotNumber: [''],
@@ -107,12 +116,18 @@ export class DmrsearchComponent implements OnInit {
       this.equipmentArr.unshift('ALL');
 
 
-      this.selectedEquipments = this.equipmentArr;
-      this.selectedDefectGroup1 = this.defectGroup1Arr;
+      // this.selectedEquipments = this.equipmentArr.slice(0,10);
+      this.openCurrentPage(1,'selectedEquipments','equipmentArr','pagerEquipment');
+      // this.selectedDefectGroup1 = this.defectGroup1Arr;
+      this.openCurrentPage(1,'selectedDefectGroup1','defectGroup1Arr','pagerDefectGroup1');
       this.selectedDefectGroup2 = this.defectGroup2Arr;
-      this.selectedWaitingFor = this.waitingForArr;
-      this.selectedTitels = this.titlesArr;
+      this.openCurrentPage(1,'selectedDefectGroup2','defectGroup2Arr','pagerDefectGroup2');
+      // this.selectedWaitingFor = this.waitingForArr;
+      this.openCurrentPage(1,'selectedWaitingFor','waitingForArr','pagerWaitingFor');
+      // this.selectedTitels = this.titlesArr;
+      this.openCurrentPage(1,'selectedTitels','titlesArr','pagerTitels');
       this.selectedLocations = this.locationArr;
+
     });
   }
 
@@ -204,7 +219,6 @@ export class DmrsearchComponent implements OnInit {
           }
           this.spinner = false;
       });
-      console.log(this.dmrSearchForm.value);
     }
     else{
       this.openDialog('Error','Please select at least one (or more) options from a list');
@@ -217,4 +231,12 @@ export class DmrsearchComponent implements OnInit {
       data: {title: title, message: message}
     });
   }
+  openCurrentPage(selectedPage: number,objView, objArr,pager){
+      this[pager] = this.pagingService.getPager(this[objArr].length,selectedPage,this.viewItemsOnPaging);
+      // this[objView] = this[objArr].slice((selectedPage - 1) * this.viewItemsOnPaging , selectedPage * this.viewItemsOnPaging);
+      this[objView] = this[objArr].slice(this[pager].startIndex, this[pager].endIndex + 1);
+  }
+  // paging(selectedPage: number,objArr){
+  //   this.pager =  this.pagingService.getPager(this[objArr].length,selectedPage,this.viewItemsOnPaging);
+  // }
 }

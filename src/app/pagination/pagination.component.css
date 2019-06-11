@@ -1,0 +1,27 @@
+.paginationUL{
+    display:flex;
+    padding: 0 16px;
+}
+.paginationUL> li{
+    background-color: #fff;
+    padding: 5px 2px;
+    border:1px solid #ddd;
+    cursor: pointer;
+    flex-grow: 1;
+}
+.paginationUL > li > a {
+    display: block;
+    text-align: center;
+}
+.paginationUL> li.active{
+    background-color: #269;
+    color: #fff;
+    padding: 5px 1px !important;
+    border: 1px solid #fff;
+}
+.paginationUL> li.disabled{
+    background: rgba(221,221,221,0.5);
+    cursor: pointer;
+    border: 1px solid rgba(170,170,170,1);
+    color: rgba(170,170,170,1);
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material';
@@ -16,6 +16,13 @@ export class GenTableComponent implements OnInit {
   @Input() tableName;
   @Input() lotProgressStep;
   @Input() lotStatus;
+  @Input() indexStepProgressLot;
+  noRecipe: string = '';
+  filter;
+
+
+  pageMinSize: number = 15;
+
   @ViewChild('TABLE') table: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSizeOptions = [];
@@ -23,13 +30,43 @@ export class GenTableComponent implements OnInit {
 
 
   ngOnInit() {
-    this.pageSizeOptions = [15,30,45,this.dataSource.data.length];
+    // this.pageSizeOptions = [15,30,45,this.dataSource.data.length];
+    this.pageSizeOptions = this.dataSource.data == undefined ? [] : this.dataSource.data.length > this.pageMinSize ? [this.pageMinSize + 1, Math.ceil(this.dataSource.data.length / 4), Math.ceil(this.dataSource.data.length / 3), this.dataSource.data.length] : [this.dataSource.data.length];
     this.dataSource.paginator = this.paginator;
-    
+
     // this.lotProgressStep = this.lotProgressStep.split('-');
   }
+  goTo() {
+
+    if (this.dataSource.data.length > this.pageMinSize) {
+      // let arr = [16, Math.ceil(this.dataSource.data.length / 4), Math.ceil(this.dataSource.data.length / 3), this.dataSource.data.length];
+      // let pi = arr.find(el => el > this.indexStepProgressLot);
+      let goToIndex = Math.floor(this.indexStepProgressLot / this.paginator.pageSize);
+      goToIndex == -1 ? this.noRecipe = 'No current recipe' : this.noRecipe = '';
+      this.paginator.pageIndex = goToIndex;
+      this.paginator.page.next({
+        pageIndex: goToIndex,
+        pageSize: this.dataSource.data.length,
+        length: this.paginator.length
+      });
+    }
+    setTimeout(() => {
+      document.getElementById(this.lotProgressStep + '-' + this.tableName).scrollIntoView({ block: 'center' });
+    }, 0);
+  }
+
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (filterValue == '') {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.filter = '';
+    } else {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+  }
+
+  goToId(id: string) {
+    let goToDomEl = document.getElementById(id);
+    goToDomEl.scrollIntoView();
   }
 
   ExportTOExcel() {

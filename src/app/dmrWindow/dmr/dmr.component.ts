@@ -33,6 +33,8 @@ export class DmrComponent implements OnInit {
           break;
         case "Department": this.dmrBy = 'dmrByDepartment';
           break;
+        case null: this.dataService.editUserDoEdit('Please edit your profile first');
+            break;
       }
     });
 

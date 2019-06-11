@@ -1,18 +1,21 @@
 table {
     width: 100%;
   }
- tr > th:nth-child(odd){
-  background: rgba(211, 211, 211, 1);
-}
- tr > th:nth-child(even){
-  background: rgba(173, 216, 230, 1);
-}
-tr > td:nth-child(even){
-  background: rgba(218, 240, 248,1);
-}
-tr > td:nth-child(odd){
-  background:rgba(230, 230, 230,0.8);
-}
+  tr > th:nth-child(odd){
+    /* background: lightgray; */
+    background: #DCDCDC;
+  }
+   tr > th:nth-child(even){
+    background: #E9E9E9;
+  }
+  tr > td:nth-child(even){
+    /* background: rgba(218, 240, 248,1); */
+    background: rgba(245, 245, 245, 1);
+  }
+  tr > td:nth-child(odd){
+    /* background:rgba(230, 230, 230,1); */
+   background: #EDEDED;
+  }
 tr td{
   text-align: center;
 }

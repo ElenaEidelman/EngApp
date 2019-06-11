@@ -10,7 +10,8 @@
       <h3>Welcome {{userDetails[0].split(' ')[1]}}</h3>
     </div> -->
     <div class="wrap-buttons">
-      <button [routerLink]="['editprofile']" mat-icon-button matTooltip="Edit profile"
+      <mat-error class="error">{{userEditProfile}}</mat-error>
+      <button [routerLink]="['editprofile']" mat-icon-button matTooltip="Edit profile" [class.flickeRed]="userEditProfile != ''"
         [matTooltipPosition]="position.value" matTooltipClass="tooltipclass">
         <mat-icon>edit</mat-icon>
       </button>

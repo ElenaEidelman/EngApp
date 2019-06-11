@@ -2,7 +2,7 @@
     <div class="wrap-filter-button">
         <div>
             <mat-form-field class="filter-wrap">
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" [(ngModel)]="filter">
               </mat-form-field>
               <button mat-icon-button matTooltip="clear filter" matTooltipClass="tooltipclass" (click)="applyFilter('')">
                 <mat-icon>clear</mat-icon>

@@ -50,7 +50,8 @@ export class TableComponent implements OnInit {
       this.archive = this.disableSelected != false ? 'archive' : 'unarchive';
     },0);
     this.dataSource.paginator = this.paginator;
-    this.pageSizeOptions = [15,30,45,this.dataSource.data.length];
+    // this.pageSizeOptions = [15,30,45,this.dataSource.data != undefined ? this.dataSource.data.length : null];
+    this.pageSizeOptions = this.dataSource.data == undefined ? [] : this.dataSource.data.length > 15 ? [16,Math.ceil(this.dataSource.data.length / 4),Math.ceil(this.dataSource.data.length / 3),this.dataSource.data.length] : [this.dataSource.data.length];
     this.linkEncrypt = localStorage.getItem('Encrypt');
     let username = localStorage.getItem('user');
     this.archionList(this.displayedData, username);
@@ -123,7 +124,7 @@ export class TableComponent implements OnInit {
           if (result) {
             this.openDialog('Success', 'Archion list was changed');
             if(this.disableSelected == false){
-              tempSetToRemove.forEach(id => {
+              tempSetToRemove.forEach((id: string) => {
                 document.getElementById(id).style.display = "none";
               });
             }

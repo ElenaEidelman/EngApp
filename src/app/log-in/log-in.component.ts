@@ -38,7 +38,7 @@ export class LogInComponent implements OnInit {
           //debugger
           localStorage.setItem("userExist","true");
           localStorage.setItem("userPass",JSON.stringify({username: userName, password: password}));
-          this.route.navigate(['profile/' + userName]);
+          this.route.navigate(['profile/' + userName + '/dmr/dmrlist']);
         }else{
           this.openDialog('Error','User not exist');
         }

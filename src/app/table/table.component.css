@@ -2,22 +2,25 @@ table {
     width: 100%;
   }
  tr > th:nth-child(odd){
-  background: lightgray;
+  /* background: lightgray; */
+  background: #DCDCDC;
 }
  tr > th:nth-child(even){
-  background: lightblue;
+  background: #E9E9E9;
 }
 tr > td:nth-child(even){
-  background: rgba(218, 240, 248,1);
+  /* background: rgba(218, 240, 248,1); */
+  background: rgba(245, 245, 245, 1);
 }
 tr > td:nth-child(odd){
-  background:rgba(230, 230, 230,1);
+  /* background:rgba(230, 230, 230,1); */
+ background: #EDEDED;
 }
 tr td{
   text-align: center;
 }
 tr th{
-  border-bottom: 2px solid gray;
+  border-bottom: 2px solid gray !important;
   text-align: center;
   padding: 2px;
 }
@@ -56,3 +59,4 @@ th{
 .filter-wrap{
   margin-right: 3em;
 }
+

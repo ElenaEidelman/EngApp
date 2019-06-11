@@ -1,0 +1,21 @@
+<!-- <div>
+  <div *ngFor="let page of pagesArr" (click)="openCurrPage(page)">{{page}}</div>
+</div> -->
+
+<ul *ngIf="pager" class="paginationUL">
+    <li [class.disabled]="pager.currentPage == 1" class="ng-star-inserted-arrow">
+      <a (click)="setCurrentPage(1)"><<</a>
+    </li>
+    <li [class.disabled]="pager.currentPage == 1" class="ng-star-inserted-arrow">
+      <a (click)="setCurrentPage(pager.currentPage - 1)"><</a>
+    </li>
+    <li *ngFor="let page of pager.pages" [class.active]="pager.currentPage == page">
+      <a (click)="setCurrentPage(page)">{{page}}</a>
+    </li>
+    <li [class.disabled]="pager.currentPage == pager.totalPages" class="ng-star-inserted-arrow">
+      <a (click)="setCurrentPage(pager.currentPage + 1)">></a>
+    </li>
+    <li [class.disabled]="pager.currentPage == pager.totalPages" class="ng-star-inserted-arrow">
+      <a (click)="setCurrentPage(pager.totalPages)">>></a>
+    </li>
+  </ul>

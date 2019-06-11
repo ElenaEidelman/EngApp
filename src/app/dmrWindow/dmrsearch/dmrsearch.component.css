@@ -9,6 +9,7 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
+    box-shadow: 0px 0px 1px #d8cbbb;
 }
 .child-input{
     width: 47%;

@@ -24,7 +24,8 @@ export class ProfileComponent implements OnInit {
 
   username: string;
   userDetails = {};
-  imgSrc;
+  imgSrc = 'assets/img/images.jpg';
+  userEditProfile:string = '';
 
   showScrollHeight = 300;
   hideScrollHeight = 10;
@@ -48,6 +49,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.username = this.getUserName();
     this.getUserDetails(this.username);
+
+    //show error to user if not done edit profile
+    this.dataService.userDoEdit.subscribe(result => {
+      this.userEditProfile = result;
+    });
 
   }
 
@@ -73,7 +79,7 @@ export class ProfileComponent implements OnInit {
       });
       localStorage.setItem('userDetails', JSON.stringify(userDetails));
       this.userDetails = result;
-      this.imgSrc = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg' + ';base64,' + result[11]);
+      //this.imgSrc = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg' + ';base64,' + result[11]);
 
     });
   }

@@ -10,7 +10,8 @@ export class SwrComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {;
+  ngOnInit() {
+    
   }
 }
 

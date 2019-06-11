@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, Directive, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, Directive, ViewChild, AfterViewInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { LotInfo } from 'src/app/classes/lotInfo';
 import { MatTableDataSource } from '@angular/material';
@@ -13,6 +13,7 @@ import { FormControl, Validator, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StopNotice } from 'src/app/classes/lotStopNotice';
 import { GenTableComponent } from 'src/app/gen-table/gen-table.component';
+
 
 
 
@@ -43,7 +44,9 @@ export class WindowLotInfoComponent implements OnInit {
   noLotNumber: boolean = false;
   lotProgressCurrentStep = '';
   lotStatus = '';
+  indexStepProgressLot:number;
   color: string = 'rgba(99, 132, 179, 0.5)';
+  noRecipe: string = '';
 
   ngOnInit() {
     if (this.dataService.lotInfo != undefined) {
@@ -61,7 +64,6 @@ export class WindowLotInfoComponent implements OnInit {
         this.lotInfo();
       }
     });
-
   }
 
   onSubmit() {
@@ -148,26 +150,54 @@ export class WindowLotInfoComponent implements OnInit {
       anchor.scrollIntoView({block: "center"});
     }
     else{
-      let arr = navigateTo.split('-');
-      let search = arr[arr.length - 2];
-      this.child.applyFilter(search);
+      // let arr = navigateTo.split('-');
+      // let search = arr[arr.length - 2];
+      this.child.goTo();
+      this.noRecipe = this.child.noRecipe;
+ 
     }
     
   }
   getDataFromDb() {
     this.spinner = true;
-    return this.dataService.getDataLotInfo(this.lotNumber.value).subscribe(result => {
+    this.noRecipe = '';
+    return this.dataService.getDataLotInfo(this.lotNumber.value + '-' + ' ').subscribe(result => {
       this.spinner = false;
       this.arrDataForTable = result;
 
       let resultToArr = Object.keys(result).map((k) => result[k]);
       let getStepForProgress = resultToArr.find(element => element.tableName == 'LotInfo');
       this.lotProgressCurrentStep = getStepForProgress.obj[0]["CURRENT_STEP"];
-      let d = this.dataService.lotInfo.lotData.find(table => table);
-      this.lotStatus = getStepForProgress.obj[0]["STATUS"];
 
+      this.lotStatus = getStepForProgress.obj[0]["STATUS"];
       this.lotInfo();
     });
+  }
+  getBigData(tableName: string){
+    this.spinner = true;
+    this.noRecipe = '';
+    if (this.lotNumber.valid) {
+      this.noLotNumber = false;
+    let ifExist = this.arrDataForTable.find(element => element.tableName == tableName);
+    if(ifExist == undefined){
+       this.dataService.getBigDataLotInfo(this.lotNumber.value + '-' + tableName).subscribe(result => {
+        this.spinner = false;
+        let curSt = this.lotProgressCurrentStep.split('-');
+        this.indexStepProgressLot = result[0]["obj"].findIndex(element => element["AREA"] == curSt[0] && element["STAGE"] == curSt.slice(1,curSt.length - 1).join('-') && element["RECIPE"] == curSt.pop());
+
+        this.arrDataForTable.push(result[0]);
+       this.dataService.addToLotInfo(this.lotNumber.value,this.arrDataForTable);
+       this.getData(tableName);
+      });
+    }
+    else{
+      this.spinner = false;
+      this.getData(tableName);
+    }
+  }
+  else{
+    this.noLotNumber = true;
+  }
   }
   getData(tableName: string) {
     if (this.lotNumber.valid) {

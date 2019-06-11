@@ -85,6 +85,9 @@
                   placeholder="search">
               </mat-form-field>
               <mat-option [value]="def1" *ngFor="let def1 of selectedDefectGroup1">{{def1}}</mat-option>
+              <app-pagination *ngIf="selectedDefectGroup1 != null" [pager]="pagerDefectGroup1"
+                (openCurrentPage)="openCurrentPage($event,'selectedDefectGroup1','defectGroup1Arr','pagerDefectGroup1')">
+              </app-pagination>
             </mat-select>
           </mat-form-field>
         </div>
@@ -98,6 +101,9 @@
                   placeholder="search">
               </mat-form-field>
               <mat-option [value]="def2" *ngFor="let def2 of selectedDefectGroup2">{{def2}}</mat-option>
+              <app-pagination *ngIf="selectedDefectGroup2 != null" [pager]="pagerDefectGroup2"
+                (openCurrentPage)="openCurrentPage($event,'selectedDefectGroup2','defectGroup2Arr','pagerDefectGroup2')">
+              </app-pagination>
             </mat-select>
           </mat-form-field>
         </div>
@@ -127,7 +133,11 @@
                   placeholder="search">
               </mat-form-field>
               <mat-option [value]="title" *ngFor="let title of selectedTitels"
-                (onSelectionChange)="change('Title',$event)">{{title}}</mat-option>
+                (onSelectionChange)="change('Title',$event)">{{title}}
+              </mat-option>
+              <app-pagination *ngIf="selectedTitels != null" [pager]="pagerTitels"
+                (openCurrentPage)="openCurrentPage($event,'selectedTitels','titlesArr','pagerTitels')">
+              </app-pagination>
             </mat-select>
           </mat-form-field>
         </div>
@@ -143,6 +153,9 @@
               <mat-option [value]="user.badge" *ngFor="let user of selectedWaitingFor"
                 (onSelectionChange)="change('WaitingFor',$event)">{{user.nameAndLname}}
               </mat-option>
+              <app-pagination *ngIf="selectedWaitingFor != null" [pager]="pagerWaitingFor"
+                (openCurrentPage)="openCurrentPage($event,'selectedWaitingFor','waitingForArr','pagerWaitingFor')">
+              </app-pagination>
             </mat-select>
           </mat-form-field>
         </div>
@@ -187,6 +200,10 @@
                 (onSelectionChange)="change('Equipment',$event)">
                 {{equipment}}
               </mat-option>
+              <app-pagination *ngIf="selectedEquipments != null" [pager]="pagerEquipment"
+                (openCurrentPage)="openCurrentPage($event,'selectedEquipments','equipmentArr','pagerEquipment')">
+              </app-pagination>
+              <!-- [pager] = "paging(equipmentArr.length,'equipmentArr')" -->
             </mat-select>
           </mat-form-field>
         </div>
@@ -202,7 +219,7 @@
   <div id="tabledata">
     <div *ngIf="dataSource">
       <app-table [displayedColumns]="displayedColumns" [dataSource]="dataSource" [selection]="selection"
-        [displayedData]="displayedData">
+        [displayedData]="displayedData" [disableSelected]="true">
         <div *ngIf="noData" class="noData">No data</div>
       </app-table>
     </div>

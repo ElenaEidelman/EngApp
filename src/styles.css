@@ -153,6 +153,10 @@ table{
  .tooltipclass{
   font-size: 13px;
 }
+th.mat-header-cell{
+  text-align:center !important;
+}
+
 /* .mat-tab-body-wrapper {
   height: -webkit-fill-available;
 } */

@@ -92,7 +92,6 @@ export class RecordComponent implements OnInit {
     }
     this.dataService.getDmrsList(JSON.stringify(dataToDb)).subscribe(
       result => {
-        debugger
         this.spinner = false;
         if (Object.keys(result).length > 0) {
           this.noData = false;
