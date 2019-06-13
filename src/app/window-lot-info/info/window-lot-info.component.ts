@@ -197,6 +197,7 @@ export class WindowLotInfoComponent implements OnInit {
   }
   else{
     this.noLotNumber = true;
+    this.spinner = false;
   }
   }
   getData(tableName: string) {

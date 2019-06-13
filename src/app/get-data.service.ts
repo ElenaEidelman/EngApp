@@ -123,7 +123,6 @@ export class GetDataService implements OnInit {
   getDmrsList(data:any){
     return this.http.post(`${this.baseUrl}/dmrs/DmrList`,new String(data)).pipe(
       map(result => {
-        debugger
         return result;
       })
     );

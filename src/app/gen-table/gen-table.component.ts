@@ -37,7 +37,6 @@ export class GenTableComponent implements OnInit {
     // this.lotProgressStep = this.lotProgressStep.split('-');
   }
   goTo() {
-
     if (this.dataSource.data.length > this.pageMinSize) {
       // let arr = [16, Math.ceil(this.dataSource.data.length / 4), Math.ceil(this.dataSource.data.length / 3), this.dataSource.data.length];
       // let pi = arr.find(el => el > this.indexStepProgressLot);
@@ -51,7 +50,10 @@ export class GenTableComponent implements OnInit {
       });
     }
     setTimeout(() => {
-      document.getElementById(this.lotProgressStep + '-' + this.tableName).scrollIntoView({ block: 'center' });
+     let goTo =  document.getElementById(this.lotProgressStep + '-' + this.tableName);
+     if(goTo != null){
+       goTo.scrollIntoView({ block: 'center' });
+     }
     }, 0);
   }
 

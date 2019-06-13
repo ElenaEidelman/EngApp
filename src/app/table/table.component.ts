@@ -223,4 +223,14 @@ export class TableComponent implements OnInit {
   linkTo(link){
 
   }
+
+  checkTime(datetime: string){
+    let date = datetime.split(' ')[0].split('/');
+    let time = datetime.split(' ')[1].split(':');
+    let oneHour = 60*60*1000;
+
+    let dateMilisec = new Date(+('20' + date[2]),+date[1]-1,+date[0], +time[0],+time[1]).getTime();
+    //let res = (new Date() - dateMilisec) < 60*60*1000;
+    return (new Date().getTime() - dateMilisec) < oneHour;
+  }
 }

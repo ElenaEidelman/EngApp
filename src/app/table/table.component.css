@@ -59,4 +59,10 @@ th{
 .filter-wrap{
   margin-right: 3em;
 }
-
+button.chartButton{
+  background: #22b9ca;
+}
+.newDmr{
+  background: #f0b7a4 !important;
+  color:#fff;
+}
